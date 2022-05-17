@@ -1,0 +1,10 @@
+K:\12AI\Assesment\Game_V0.1\Game_V0.1\bin\Debug\Game_V0.1.exe.config
+K:\12AI\Assesment\Game_V0.1\Game_V0.1\bin\Debug\Game_V0.1.exe
+K:\12AI\Assesment\Game_V0.1\Game_V0.1\bin\Debug\Game_V0.1.pdb
+K:\12AI\Assesment\Game_V0.1\Game_V0.1\obj\Debug\Game_V0.1.csprojAssemblyReference.cache
+K:\12AI\Assesment\Game_V0.1\Game_V0.1\obj\Debug\Game_V0._1.Form1.resources
+K:\12AI\Assesment\Game_V0.1\Game_V0.1\obj\Debug\Game_V0._1.Properties.Resources.resources
+K:\12AI\Assesment\Game_V0.1\Game_V0.1\obj\Debug\Game_V0.1.csproj.GenerateResource.cache
+K:\12AI\Assesment\Game_V0.1\Game_V0.1\obj\Debug\Game_V0.1.csproj.CoreCompileInputs.cache
+K:\12AI\Assesment\Game_V0.1\Game_V0.1\obj\Debug\Game_V0.1.exe
+K:\12AI\Assesment\Game_V0.1\Game_V0.1\obj\Debug\Game_V0.1.pdb
