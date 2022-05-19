@@ -1,0 +1,15 @@
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csprojAssemblyReference.cache
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\MainWindow.g.cs
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\App.g.cs
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf_MarkupCompile.cache
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf_MarkupCompile.lref
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\bin\Debug\assesmentWpf.exe.config
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\bin\Debug\assesmentWpf.exe
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\bin\Debug\assesmentWpf.pdb
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\MainWindow.baml
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.g.resources
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.Properties.Resources.resources
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.GenerateResource.cache
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.CoreCompileInputs.cache
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.exe
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.pdb
