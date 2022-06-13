@@ -18,9 +18,39 @@ namespace assesmentWpf
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+    public class Player
+    {
+        public Image visual = new Image();
+        public Rect hitbox = new Rect();
+
+        public Player()
+        {
+            this.visual.Source = new BitmapImage(new Uri("K:/12AI/AssesmentDev/Sprites/player.gif"));
+            this.visual.Width = 50;
+            this.visual.Height = 50;
+            this.visual.Stretch = Stretch.Fill;
+            Canvas.SetLeft(this.visual, 100);
+            Canvas.SetTop(this.visual, 100);
+        }
+
+
+        public void SetHitHox()
+        {
+            this.hitbox.X = Canvas.GetLeft(this.visual);
+            this.hitbox.Y = Canvas.GetTop(this.visual);
+            this.hitbox.Width = this.visual.Width;
+            this.hitbox.Height = this.visual.Height;
+        }
+
+
+    }
+
+
     public partial class MainWindow : Window
     {
         public double wHeight, wWidth;
+        Player player = new Player();
         public MainWindow()
         {
             InitializeComponent();
@@ -28,6 +58,7 @@ namespace assesmentWpf
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             dispatcherTimer.Start();
+            background.Children.Add(player.visual);
         }
 
         private void btn_look_Click(object sender, RoutedEventArgs e)
@@ -37,16 +68,17 @@ namespace assesmentWpf
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            this.Left = System.Windows.SystemParameters.PrimaryScreenWidth;
-            this.Top = System.Windows.SystemParameters.PrimaryScreenHeight;
-            wHeight = windowMain.Height;
-            wWidth = windowMain.Width;
-            var pos = GetMousePos(windowMain, wWidth, wHeight);
+            
+            
+
+
+            var pos = GetMousePos(player.visual);
             var angle = GetAngle(pos);
+
             lbl_output.Content = angle.ToString();
             lbl_output_pos.Content = pos.ToString();
             RotateTransform rotateTransform = new RotateTransform(angle, 50, 50);
-            player.RenderTransform = rotateTransform;
+            player.visual.RenderTransform = rotateTransform;
             //lbl_output.Content = GetMousePos(player); 
         }
 
@@ -82,14 +114,13 @@ namespace assesmentWpf
 
         }
 
-        static Point GetMousePos(Window back, double w, double h)
+        static Point GetMousePos(Image p)
         {
 
-            Point mousePos = Mouse.GetPosition(back);
-            var ofbackX =  w / 2 * -1;
-            var ofbackY = h / 2 * -1;
+            Point mousePos = Mouse.GetPosition(p);
+           
 
-            mousePos.Offset(ofbackX, ofbackY);
+            
             return mousePos;
         }
 
