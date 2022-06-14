@@ -315,7 +315,6 @@ namespace assesmentWpf
             }
 
             pos = Mouse.GetPosition(player.middle);
-            //pos.Offset(1, 1);
             angle = GetAngle(pos);
             if (player.shooting == false)
             {
@@ -336,7 +335,7 @@ namespace assesmentWpf
 
             lbl_output.Content = angle.ToString();
             lbl_output_pos.Content = pos.ToString();
-            RotateTransform rotateTransform = new RotateTransform(angle,0,3);
+            RotateTransform rotateTransform = new RotateTransform(angle,0,player.gun.Height/2);
             player.gun.RenderTransform = rotateTransform;
        
         
