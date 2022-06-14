@@ -20,6 +20,107 @@ namespace assesmentWpf
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
+
+    public class Bullets
+    {
+        public bool shooting = false;
+        public Ellipse visual = new Ellipse();
+        public Rect hitbox = new Rect();
+        public Bullets(SolidColorBrush color)
+        {
+            this.visual.Fill = color;
+            this.visual.Stroke = color;
+            this.visual.Width = 10;
+            this.visual.Height = 10;
+            this.visual.KeyDown += Visual_KeyDown;
+            this.visual.KeyUp += Visual_KeyUp;
+            this.visual.Focusable = true;
+            this.ResetBullet();
+        }
+        public void Visual_KeyUp(object sender, KeyEventArgs e)
+        {
+        }
+
+        void Visual_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+
+                this.shooting = true;
+            }
+        }
+
+
+        public void SetHitHox()
+        {
+            this.hitbox.X = Canvas.GetLeft(this.visual);
+            this.hitbox.Y = Canvas.GetTop(this.visual);
+            this.hitbox.Width = this.visual.Width;
+            this.hitbox.Height = this.visual.Height;
+        }
+        public void ResetBullet()
+        {
+            Canvas.SetLeft(this.visual, 50);
+            Canvas.SetTop(this.visual, 50);
+            Canvas.SetRight(this.visual, 60);
+            Canvas.SetBottom(this.visual, 60);
+        }
+    }
+    public class Walls
+    {
+        public Rectangle visual = new Rectangle();
+        public Rect hitbox = new Rect();
+        public Walls(SolidColorBrush color)
+        {
+            this.visual.Fill = color;
+            this.visual.Stroke = color;
+            this.visual.Width = 50;
+            this.visual.Height = 497;
+            Canvas.SetLeft(this.visual, 500);
+            Canvas.SetTop(this.visual, 0);
+        }
+        public void SetHitHox()
+        {
+            this.hitbox.X = Canvas.GetLeft(this.visual);
+            this.hitbox.Y = Canvas.GetTop(this.visual);
+            this.hitbox.Width = this.visual.Width;
+            this.hitbox.Height = this.visual.Height;
+        }
+    }
+    public class Portals
+    {
+
+        public Rectangle visual = new Rectangle();
+        public Rect hitbox = new Rect();
+        public Portals(SolidColorBrush color)
+        {
+            this.visual.Fill = color;
+            this.visual.Stroke = color;
+            this.visual.Width = 2;
+            this.visual.Height = 50;
+            Canvas.SetLeft(this.visual, 0);
+            Canvas.SetTop(this.visual, 0);
+            this.visual.Visibility = Visibility.Hidden;
+        }
+        public void SetHitHox()
+        {
+            this.hitbox.X = Canvas.GetLeft(this.visual);
+            this.hitbox.Y = Canvas.GetTop(this.visual);
+            this.hitbox.Width = this.visual.Width;
+            this.hitbox.Height = this.visual.Height;
+        }
+        public void spawn(Bullets bullet)
+        {
+            this.visual.Visibility = Visibility.Visible;
+            bullet.SetHitHox();
+            var top = Canvas.GetTop(bullet.visual);
+            var left = Canvas.GetLeft(bullet.visual);
+            Canvas.SetLeft(this.visual, left + bullet.visual.Width - 2);
+            Canvas.SetTop(this.visual, top - this.visual.Height / 2 + 5);
+            bullet.ResetBullet();
+        }
+
+    }
     public class Player
     {
         public Ellipse visual = new Ellipse();
@@ -173,6 +274,18 @@ namespace assesmentWpf
 
             Canvas.SetLeft(bullet2, Canvas.GetLeft(player.middle) - 3);
             Canvas.SetTop(bullet2, Canvas.GetTop(player.middle) - 3);
+
+            blocks.Add(wall);
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            dispatcherTimer.Start();
+            
+            background.Children.Add(blue.visual);
+            background.Children.Add(wall.visual);
+            background.Children.Add(portal_blue.visual);
+            background.Children.Add(portal_orange.visual);
+       
         }
 
        
@@ -243,6 +356,76 @@ namespace assesmentWpf
 
             
         }
+
+
+        Portals portal_blue = new Portals(new SolidColorBrush(Colors.Blue));
+        Portals portal_orange = new Portals(new SolidColorBrush(Colors.Orange));
+        Bullets blue = new Bullets(new SolidColorBrush(Colors.Blue));
+        Bullets orange = new Bullets(new SolidColorBrush(Colors.Orange));
+        Walls wall = new Walls(new SolidColorBrush(Colors.Black));
+        List<Walls> blocks = new List<Walls>();
+
+
+        public MainWindow()
+        {
+            
+
+        }
+
+
+
+        public void ResetBullet(Ellipse obj, Rect HitBox)
+        {
+            Canvas.SetLeft(obj, 50);
+            Canvas.SetTop(obj, 50);
+            HitBox.X = 10;
+            HitBox.Y = 10;
+        }
+
+        
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            wall.SetHitHox();
+            blue.SetHitHox();
+            orange.SetHitHox();
+            foreach  (Walls x in blocks)
+                {
+
+                if (ColisionDetc(blue.hitbox, x.hitbox)) 
+                {
+                    blue.shooting = false;
+                    portal_blue.spawn(blue);
+                }
+                else { if (blue.shooting == true) { Canvas.SetLeft(blue.visual, Canvas.GetLeft(blue.visual) + 1); } } 
+            }
+
+
+
+
+        }
+
+        public bool ColisionDetc(Rect a, Rect b)
+        {
+            if (a.IntersectsWith(b))
+            {
+                return true;
+                
+            }
+            else
+            {
+                return false;
+                
+            }
+            
+            
+        }
+
+
+
+
+
+        
     }
 }
 
