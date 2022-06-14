@@ -57,14 +57,14 @@ namespace assesmentWpf
     {
         public Rectangle visual = new Rectangle();
         public Rect hitbox = new Rect();
-        public Walls(SolidColorBrush color)
+        public Walls(SolidColorBrush color, int x, int y)
         {
             this.visual.Fill = color;
             this.visual.Stroke = color;
             this.visual.Width = 50;
             this.visual.Height = 497;
-            Canvas.SetLeft(this.visual, 500);
-            Canvas.SetTop(this.visual, 0);
+            Canvas.SetLeft(this.visual, x);
+            Canvas.SetTop(this.visual, y);
         }
         public void SetHitHox()
         {
@@ -125,7 +125,7 @@ namespace assesmentWpf
             this.visual.Width = 50;
             this.visual.Height = 50;
             this.visual.Stretch = Stretch.Fill;
-            Canvas.SetLeft(this.visual, 900);
+            Canvas.SetLeft(this.visual, 500);
             Canvas.SetTop(this.visual, 200);
 
             this.gun.Fill = new SolidColorBrush(Colors.Purple);
@@ -246,7 +246,6 @@ namespace assesmentWpf
         public static Portals portal_orange = new Portals(new SolidColorBrush(Colors.Orange));
         public static Bullets blue = new Bullets(new SolidColorBrush(Colors.Blue));
         public static Bullets orange = new Bullets(new SolidColorBrush(Colors.Orange));
-        public static Walls wall = new Walls(new SolidColorBrush(Colors.Black));
         public static List<Walls> blocks = new List<Walls>();
         public static Player player = new Player();
 
@@ -267,32 +266,45 @@ namespace assesmentWpf
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             dispatcherTimer.Start();
 
+            makeWalls();
+
             background.Children.Add(player.visual);
             background.Children.Add(player.gun);
             background.Children.Add(player.middle);
-            background.Children.Add(wall.visual);
             background.Children.Add(blue.visual);
             background.Children.Add(orange.visual);
             background.Children.Add(portal_blue.visual);
             background.Children.Add(portal_orange.visual);
             background.Children.Add(xx);
-            blocks.Add(wall);
+            
+            
 
             
-
-            
-            
-            
-            
-       
         }
 
+        public void makeWalls()
+        {
+
+            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 750, 10)); ;
+            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 250, 10));
+
+            foreach (Walls item in blocks)
+            {
+                background.Children.Add(item.visual);
+            }
+
+
+
+        }
        
 
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            wall.SetHitHox();
+            foreach (Walls item in blocks)
+            {
+                item.SetHitHox();
+            }
             blue.SetHitHox();
             orange.SetHitHox();
 
