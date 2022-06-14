@@ -116,6 +116,7 @@ namespace assesmentWpf
         public Rectangle middle = new Rectangle();
         public double x = 0;
         public double xpos = 0;
+        public double ypos = 0;
         public bool shooting = false;
 
         public Player()
@@ -124,15 +125,15 @@ namespace assesmentWpf
             this.visual.Width = 50;
             this.visual.Height = 50;
             this.visual.Stretch = Stretch.Fill;
-            Canvas.SetLeft(this.visual, 100);
-            Canvas.SetTop(this.visual, 100);
+            Canvas.SetLeft(this.visual, 900);
+            Canvas.SetTop(this.visual, 200);
 
             this.gun.Fill = new SolidColorBrush(Colors.Purple);
             this.gun.Width = 25;
             this.gun.Height = 6;
             this.gun.Stretch = Stretch.Fill;
-            Canvas.SetLeft(this.gun, 125);
-            Canvas.SetTop(this.gun, 122);
+            Canvas.SetLeft(this.gun, Canvas.GetLeft(this.visual) + this.visual.Width/2 );
+            Canvas.SetTop(this.gun, Canvas.GetTop(this.visual) + this.visual.Height / 2 - (this.gun.Height / 2));
 
 
 
@@ -155,9 +156,12 @@ namespace assesmentWpf
 
         public void Shoot(int witchbul, Point direction, double ang)
         {
-            this.x = 0;
+            this.x = 1;
             this.shooting = true;
-            
+            if (direction.X < 0)
+            {
+                this.x *= -1;
+            }
 
             
             if (witchbul == 1) 
@@ -166,6 +170,7 @@ namespace assesmentWpf
                 Canvas.SetLeft(MainWindow.blue.visual, Canvas.GetLeft(this.middle) - 3);
                 Canvas.SetTop(MainWindow.blue.visual, Canvas.GetTop(this.middle) - 3);
                 this.xpos = Canvas.GetLeft(MainWindow.blue.visual);
+                this.ypos = Canvas.GetTop(MainWindow.blue.visual);
             }
             else 
             {
@@ -173,6 +178,8 @@ namespace assesmentWpf
                 Canvas.SetLeft(MainWindow.orange.visual, Canvas.GetLeft(this.middle) - 3);
                 Canvas.SetTop(MainWindow.orange.visual, Canvas.GetTop(this.middle) - 3);
                 this.xpos = Canvas.GetLeft(MainWindow.orange.visual);
+                this.ypos = Canvas.GetTop(MainWindow.orange.visual);
+
             }
 
             DispatcherTimer shootingTimer = new DispatcherTimer();
@@ -185,14 +192,17 @@ namespace assesmentWpf
             {
                 
                 var equat = direction.Y / direction.X;
-                return equat * this.x + this.xpos; 
+                return equat * this.x + this.ypos; 
             }
 
 
 
             void shootingTimer_Tick(object sender, EventArgs e)
             {
-                this.x += 1;
+                if (x < 0) { x -= 5; }
+                else if (x > 0) { x += 5; }
+                
+
                 if (witchbul == 1)
                 {
                     Canvas.SetLeft(MainWindow.blue.visual, (this.x + this.xpos));
@@ -291,15 +301,15 @@ namespace assesmentWpf
 
                 if (ColisionDetc(blue.hitbox, x.hitbox))
                 {
-                    blue.shooting = false;
                     portal_blue.spawn(blue);
+                    blue.shooting = false;
                     player.shooting = false;
                 }
                 if (ColisionDetc(orange.hitbox, x.hitbox))
                 {
+                    portal_orange.spawn(orange);
                     orange.shooting = false;
                     player.shooting = false;
-                    portal_orange.spawn(orange);
                 }
 
             }
