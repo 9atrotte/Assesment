@@ -30,25 +30,12 @@ namespace assesmentWpf
         {
             this.visual.Fill = color;
             this.visual.Stroke = color;
-            this.visual.Width = 10;
-            this.visual.Height = 10;
-            this.visual.KeyDown += Visual_KeyDown;
-            this.visual.KeyUp += Visual_KeyUp;
-            this.visual.Focusable = true;
-            this.ResetBullet();
+            this.visual.Width = 6;
+            this.visual.Height = 6;
+            
+            //this.ResetBullet();
         }
-        public void Visual_KeyUp(object sender, KeyEventArgs e)
-        {
-        }
-
-        void Visual_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-
-                this.shooting = true;
-            }
-        }
+        
 
 
         public void SetHitHox()
@@ -60,8 +47,8 @@ namespace assesmentWpf
         }
         public void ResetBullet()
         {
-            Canvas.SetLeft(this.visual, 50);
-            Canvas.SetTop(this.visual, 50);
+            Canvas.SetLeft(this.visual, Canvas.GetLeft(MainWindow.player.middle) - 3);
+            Canvas.SetTop(this.visual, Canvas.GetTop(MainWindow.player.middle) - 3);
             Canvas.SetRight(this.visual, 60);
             Canvas.SetBottom(this.visual, 60);
         }
@@ -129,6 +116,7 @@ namespace assesmentWpf
         public Rectangle middle = new Rectangle();
         public double x = 0;
         public double xpos = 0;
+        public bool shooting = false;
 
         public Player()
         {
@@ -165,7 +153,6 @@ namespace assesmentWpf
 
 
 
-        public bool shooting = false;
         public void Shoot(int witchbul, Point direction, double ang)
         {
             this.x = 0;
@@ -175,15 +162,17 @@ namespace assesmentWpf
             
             if (witchbul == 1) 
             {
-                Canvas.SetLeft(MainWindow.bullet, Canvas.GetLeft(this.middle) - 3);
-                Canvas.SetTop(MainWindow.bullet, Canvas.GetTop(this.middle) - 3);
-                this.xpos = Canvas.GetLeft(MainWindow.bullet);
+                MainWindow.blue.shooting = true;
+                Canvas.SetLeft(MainWindow.blue.visual, Canvas.GetLeft(this.middle) - 3);
+                Canvas.SetTop(MainWindow.blue.visual, Canvas.GetTop(this.middle) - 3);
+                this.xpos = Canvas.GetLeft(MainWindow.blue.visual);
             }
             else 
             {
-                Canvas.SetLeft(MainWindow.bullet2, Canvas.GetLeft(this.middle) - 3);
-                Canvas.SetTop(MainWindow.bullet2, Canvas.GetTop(this.middle) - 3);
-                this.xpos = Canvas.GetLeft(MainWindow.bullet2);
+                MainWindow.orange.shooting = true;
+                Canvas.SetLeft(MainWindow.orange.visual, Canvas.GetLeft(this.middle) - 3);
+                Canvas.SetTop(MainWindow.orange.visual, Canvas.GetTop(this.middle) - 3);
+                this.xpos = Canvas.GetLeft(MainWindow.orange.visual);
             }
 
             DispatcherTimer shootingTimer = new DispatcherTimer();
@@ -203,29 +192,29 @@ namespace assesmentWpf
 
             void shootingTimer_Tick(object sender, EventArgs e)
             {
-                this.x += 5;
+                this.x += 1;
                 if (witchbul == 1)
                 {
-                    Canvas.SetLeft(MainWindow.bullet, (this.x + this.xpos));
-                    Canvas.SetTop(MainWindow.bullet, Eqauation());
+                    Canvas.SetLeft(MainWindow.blue.visual, (this.x + this.xpos));
+                    Canvas.SetTop(MainWindow.blue.visual, Eqauation());
                     MainWindow.xx.Content = this.x;
-                    if (this.x == 500)
+                    if (this.shooting == false)
                     {
                         shootingTimer.Stop();
                         this.shooting = false;
-
+                        MainWindow.blue.shooting = false;
                     }
                 }
                 else
                 {
-                    Canvas.SetLeft(MainWindow.bullet2, (this.x + this.xpos));
-                    Canvas.SetTop(MainWindow.bullet2, Eqauation());
+                    Canvas.SetLeft(MainWindow.orange.visual, (this.x + this.xpos));
+                    Canvas.SetTop(MainWindow.orange.visual, Eqauation());
                     MainWindow.xx.Content = this.x;
-                    if (this.x == 500)
+                    if (this.shooting == false)
                     {
                         shootingTimer.Stop();
                         this.shooting = false;
-
+                        MainWindow.orange.shooting = false;
                     }
 
                 }
@@ -243,9 +232,15 @@ namespace assesmentWpf
         public Point pos;
         public double angle;
         public static Label xx = new Label();
+        public static Portals portal_blue = new Portals(new SolidColorBrush(Colors.Blue));
+        public static Portals portal_orange = new Portals(new SolidColorBrush(Colors.Orange));
+        public static Bullets blue = new Bullets(new SolidColorBrush(Colors.Blue));
+        public static Bullets orange = new Bullets(new SolidColorBrush(Colors.Orange));
+        public static Walls wall = new Walls(new SolidColorBrush(Colors.Black));
+        public static List<Walls> blocks = new List<Walls>();
+        public static Player player = new Player();
 
 
-        Player player = new Player();
         public MainWindow()
         {
             
@@ -261,30 +256,24 @@ namespace assesmentWpf
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             dispatcherTimer.Start();
+
             background.Children.Add(player.visual);
             background.Children.Add(player.gun);
             background.Children.Add(player.middle);
-            background.Children.Add(bullet2);
-            background.Children.Add(bullet);
-            background.Children.Add(xx);
-
-            Canvas.SetLeft(bullet, Canvas.GetLeft(player.middle) - 3);
-            Canvas.SetTop(bullet, Canvas.GetTop(player.middle) - 3);
-
-
-            Canvas.SetLeft(bullet2, Canvas.GetLeft(player.middle) - 3);
-            Canvas.SetTop(bullet2, Canvas.GetTop(player.middle) - 3);
-
-            blocks.Add(wall);
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            dispatcherTimer.Start();
-            
-            background.Children.Add(blue.visual);
             background.Children.Add(wall.visual);
+            background.Children.Add(blue.visual);
+            background.Children.Add(orange.visual);
             background.Children.Add(portal_blue.visual);
             background.Children.Add(portal_orange.visual);
+            background.Children.Add(xx);
+            blocks.Add(wall);
+
+            
+
+            
+            
+            
+            
        
         }
 
@@ -293,17 +282,45 @@ namespace assesmentWpf
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
+            wall.SetHitHox();
+            blue.SetHitHox();
+            orange.SetHitHox();
 
-            
+            foreach (Walls x in blocks)
+            {
 
+                if (ColisionDetc(blue.hitbox, x.hitbox))
+                {
+                    blue.shooting = false;
+                    portal_blue.spawn(blue);
+                    player.shooting = false;
+                }
+                if (ColisionDetc(orange.hitbox, x.hitbox))
+                {
+                    orange.shooting = false;
+                    player.shooting = false;
+                    portal_orange.spawn(orange);
+                }
+
+            }
 
             pos = Mouse.GetPosition(player.middle);
             //pos.Offset(1, 1);
             angle = GetAngle(pos);
             if (player.shooting == false)
             {
-                if (Mouse.LeftButton == MouseButtonState.Pressed) { player.Shoot(1, pos, angle); }
-                else if (Mouse.RightButton == MouseButtonState.Pressed) { player.Shoot(2, pos, angle); }
+                if (Mouse.LeftButton == MouseButtonState.Pressed) 
+                {
+                    player.shooting = true;
+                    player.Shoot(1, pos, angle);
+                    blue.shooting = true;
+                }
+                else if (Mouse.RightButton == MouseButtonState.Pressed) 
+                {
+                    player.shooting = true;
+                    player.Shoot(2, pos, angle);
+                    orange.shooting = true;
+                }
             }
 
 
@@ -311,9 +328,22 @@ namespace assesmentWpf
             lbl_output_pos.Content = pos.ToString();
             RotateTransform rotateTransform = new RotateTransform(angle,0,3);
             player.gun.RenderTransform = rotateTransform;
-            //lbl_output.Content = GetMousePos(player); 
+       
+        
         }
 
+      
+
+
+
+
+        private void background_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+           
+            //player.Shoot(1, pos, angle);
+
+            
+        }
         static double GetAngle(Point mouse)
         {
             if (mouse.X > 0 && mouse.Y > 0) //bottom right
@@ -346,64 +376,6 @@ namespace assesmentWpf
 
         }
 
-
-      
-
-        private void background_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-           
-            //player.Shoot(1, pos, angle);
-
-            
-        }
-
-
-        Portals portal_blue = new Portals(new SolidColorBrush(Colors.Blue));
-        Portals portal_orange = new Portals(new SolidColorBrush(Colors.Orange));
-        Bullets blue = new Bullets(new SolidColorBrush(Colors.Blue));
-        Bullets orange = new Bullets(new SolidColorBrush(Colors.Orange));
-        Walls wall = new Walls(new SolidColorBrush(Colors.Black));
-        List<Walls> blocks = new List<Walls>();
-
-
-        public MainWindow()
-        {
-            
-
-        }
-
-
-
-        public void ResetBullet(Ellipse obj, Rect HitBox)
-        {
-            Canvas.SetLeft(obj, 50);
-            Canvas.SetTop(obj, 50);
-            HitBox.X = 10;
-            HitBox.Y = 10;
-        }
-
-        
-
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            wall.SetHitHox();
-            blue.SetHitHox();
-            orange.SetHitHox();
-            foreach  (Walls x in blocks)
-                {
-
-                if (ColisionDetc(blue.hitbox, x.hitbox)) 
-                {
-                    blue.shooting = false;
-                    portal_blue.spawn(blue);
-                }
-                else { if (blue.shooting == true) { Canvas.SetLeft(blue.visual, Canvas.GetLeft(blue.visual) + 1); } } 
-            }
-
-
-
-
-        }
 
         public bool ColisionDetc(Rect a, Rect b)
         {
