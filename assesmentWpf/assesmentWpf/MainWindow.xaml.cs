@@ -254,7 +254,7 @@ namespace assesmentWpf
         {
             
 
-            xx.Height = 20;
+            xx.Height = 30;
             xx.Width = 50;
             xx.Background = new SolidColorBrush(Colors.LightBlue);
             xx.FontSize = 10;
