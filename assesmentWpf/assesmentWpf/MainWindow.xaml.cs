@@ -168,7 +168,7 @@ namespace assesmentWpf
             {
                 MainWindow.blue.shooting = true;
                 Canvas.SetLeft(MainWindow.blue.visual, Canvas.GetLeft(this.middle) - 3);
-                Canvas.SetTop(MainWindow.blue.visual, Canvas.GetTop(this.middle) - 3);
+                Canvas.SetTop(MainWindow.blue.visual, Canvas.GetTop(this.middle) - 3); //reset the bullet
                 this.xpos = Canvas.GetLeft(MainWindow.blue.visual);
                 this.ypos = Canvas.GetTop(MainWindow.blue.visual);
             }
@@ -304,7 +304,7 @@ namespace assesmentWpf
             foreach (Walls item in blocks)
             {
                 item.SetHitHox();
-            }
+            }                           //resets all hitboxes
             blue.SetHitHox();
             orange.SetHitHox();
 
@@ -358,13 +358,7 @@ namespace assesmentWpf
 
 
 
-        private void background_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-           
-            //player.Shoot(1, pos, angle);
-
-            
-        }
+        
         static double GetAngle(Point mouse)
         {
             if (mouse.X > 0 && mouse.Y > 0) //bottom right
