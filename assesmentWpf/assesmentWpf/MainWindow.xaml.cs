@@ -47,8 +47,8 @@ namespace assesmentWpf
         }
         public void ResetBullet()
         {
-            Canvas.SetLeft(this.visual, Canvas.GetLeft(MainWindow.player.middle) - 3);
-            Canvas.SetTop(this.visual, Canvas.GetTop(MainWindow.player.middle) - 3);
+            Canvas.SetLeft(this.visual, Canvas.GetLeft(Window1.game.player.middle) - 3);
+            Canvas.SetTop(this.visual, Canvas.GetTop(Window1.game.player.middle) - 3);
             Canvas.SetRight(this.visual, 60);
             Canvas.SetBottom(this.visual, 60);
         }
@@ -166,19 +166,19 @@ namespace assesmentWpf
             
             if (witchbul == 1) 
             {
-                MainWindow.blue.shooting = true;
-                Canvas.SetLeft(MainWindow.blue.visual, Canvas.GetLeft(this.middle) - 3);
-                Canvas.SetTop(MainWindow.blue.visual, Canvas.GetTop(this.middle) - 3); //reset the bullet
-                this.xpos = Canvas.GetLeft(MainWindow.blue.visual);
-                this.ypos = Canvas.GetTop(MainWindow.blue.visual);
+                Window1.game.blue.shooting = true;
+                Canvas.SetLeft(Window1.game.blue.visual, Canvas.GetLeft(this.middle) - 3);
+                Canvas.SetTop(Window1.game.blue.visual, Canvas.GetTop(this.middle) - 3); //reset the bullet
+                this.xpos = Canvas.GetLeft(Window1.game.blue.visual);
+                this.ypos = Canvas.GetTop(Window1.game.blue.visual);
             }
             else 
             {
-                MainWindow.orange.shooting = true;
-                Canvas.SetLeft(MainWindow.orange.visual, Canvas.GetLeft(this.middle) - 3);
-                Canvas.SetTop(MainWindow.orange.visual, Canvas.GetTop(this.middle) - 3);
-                this.xpos = Canvas.GetLeft(MainWindow.orange.visual);
-                this.ypos = Canvas.GetTop(MainWindow.orange.visual);
+                Window1.game.orange.shooting = true;
+                Canvas.SetLeft(Window1.game.orange.visual, Canvas.GetLeft(this.middle) - 3);
+                Canvas.SetTop(Window1.game.orange.visual, Canvas.GetTop(this.middle) - 3);
+                this.xpos = Canvas.GetLeft(Window1.game.orange.visual);
+                this.ypos = Canvas.GetTop(Window1.game.orange.visual);
 
             }
 
@@ -205,26 +205,26 @@ namespace assesmentWpf
 
                 if (witchbul == 1)
                 {
-                    Canvas.SetLeft(MainWindow.blue.visual, (this.x + this.xpos));
-                    Canvas.SetTop(MainWindow.blue.visual, Eqauation());
-                    MainWindow.xx.Content = this.x;
+                    Canvas.SetLeft(Window1.game.blue.visual, (this.x + this.xpos));
+                    Canvas.SetTop(Window1.game.blue.visual, Eqauation());
+                    Window1.game.xx.Content = this.x;
                     if (this.shooting == false)
                     {
                         shootingTimer.Stop();
                         this.shooting = false;
-                        MainWindow.blue.shooting = false;
+                        Window1.game.blue.shooting = false;
                     }
                 }
                 else
                 {
-                    Canvas.SetLeft(MainWindow.orange.visual, (this.x + this.xpos));
-                    Canvas.SetTop(MainWindow.orange.visual, Eqauation());
-                    MainWindow.xx.Content = this.x;
+                    Canvas.SetLeft(Window1.game.orange.visual, (this.x + this.xpos));
+                    Canvas.SetTop(Window1.game.orange.visual, Eqauation());
+                    Window1.game.xx.Content = this.x;
                     if (this.shooting == false)
                     {
                         shootingTimer.Stop();
                         this.shooting = false;
-                        MainWindow.orange.shooting = false;
+                        Window1.game.orange.shooting = false;
                     }
 
                 }
@@ -241,13 +241,16 @@ namespace assesmentWpf
         
         public Point pos;
         public double angle;
-        public static Label xx = new Label();
-        public static Portals portal_blue = new Portals(new SolidColorBrush(Colors.Blue));
-        public static Portals portal_orange = new Portals(new SolidColorBrush(Colors.Orange));
-        public static Bullets blue = new Bullets(new SolidColorBrush(Colors.Blue));
-        public static Bullets orange = new Bullets(new SolidColorBrush(Colors.Orange));
-        public static List<Walls> blocks = new List<Walls>();
-        public static Player player = new Player();
+        public  Label xx = new Label();
+        public  Portals portal_blue = new Portals(new SolidColorBrush(Colors.Blue));
+        public  Portals portal_orange = new Portals(new SolidColorBrush(Colors.Orange));
+        public  Bullets blue = new Bullets(new SolidColorBrush(Colors.Blue));
+        public  Bullets orange = new Bullets(new SolidColorBrush(Colors.Orange));
+        public  List<Walls> blocks = new List<Walls>();
+        public  Player player = new Player();
+        public  DispatcherTimer dispatcherTimer = new DispatcherTimer();
+
+
 
 
         public MainWindow()
@@ -261,10 +264,8 @@ namespace assesmentWpf
 
 
             InitializeComponent();
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            dispatcherTimer.Start();
 
             makeWalls();
 
@@ -276,15 +277,19 @@ namespace assesmentWpf
             background.Children.Add(portal_blue.visual);
             background.Children.Add(portal_orange.visual);
             background.Children.Add(xx);
-            
-            
 
+            
+            
+            
             
         }
 
+   
+
+
         public void makeWalls()
         {
-
+            
             blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 750, 10)); ;
             blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 250, 10));
 

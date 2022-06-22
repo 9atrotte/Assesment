@@ -29,3 +29,5 @@ C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\asses
 C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.CoreCompileInputs.cache
 C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.exe
 C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.pdb
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Menu.g.cs
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Menu.baml
