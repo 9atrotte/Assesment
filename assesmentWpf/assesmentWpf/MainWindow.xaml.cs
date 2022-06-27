@@ -121,6 +121,7 @@ namespace assesmentWpf
 
         public Player()
         {
+            this.visual.Stroke = new SolidColorBrush(Colors.Black);
             this.visual.Fill = new SolidColorBrush(Colors.Red);
             this.visual.Width = 50;
             this.visual.Height = 50;
@@ -251,11 +252,15 @@ namespace assesmentWpf
         public  DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
 
-
-
         public MainWindow()
         {
             
+            
+            
+
+            
+
+
 
             xx.Height = 30;
             xx.Width = 50;
@@ -268,7 +273,6 @@ namespace assesmentWpf
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
 
             makeWalls();
-
             background.Children.Add(player.visual);
             background.Children.Add(player.gun);
             background.Children.Add(player.middle);

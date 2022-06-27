@@ -19,9 +19,21 @@ namespace assesmentWpf
     /// </summary>
     public partial class Window1 : Window
     {
+
+
+        public static MainWindow game = new MainWindow();
+
+
         public Window1()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            game.Show();
+            game.dispatcherTimer.Start();
+            this.Close();
         }
     }
 }
