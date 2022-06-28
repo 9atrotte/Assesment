@@ -53,18 +53,30 @@ namespace assesmentWpf
             Canvas.SetBottom(this.visual, 60);
         }
     }
+
+
     public class Walls
     {
         public Rectangle visual = new Rectangle();
         public Rect hitbox = new Rect();
-        public Walls(SolidColorBrush color, int x, int y)
+        
+        /// <summary>
+        /// wall builder
+        /// </summary>
+        /// <param name="color">color</param>
+        /// <param name="x">x pos</param>
+        /// <param name="y">y pos</param>
+        /// <param name="w">width</param>
+        /// <param name="h">height</param>
+        public Walls(SolidColorBrush color, int x, int y, int w, int h, string tag)
         {
             this.visual.Fill = color;
             this.visual.Stroke = color;
-            this.visual.Width = 50;
-            this.visual.Height = 497;
+            this.visual.Width = w;
+            this.visual.Height = h;
             Canvas.SetLeft(this.visual, x);
             Canvas.SetTop(this.visual, y);
+            this.visual.Tag = tag;
         }
         public void SetHitHox()
         {
@@ -77,34 +89,68 @@ namespace assesmentWpf
     public class Portals
     {
 
-        public Rectangle visual = new Rectangle();
-        public Rect hitbox = new Rect();
+        public Rectangle visualVertical = new Rectangle();
+        public Rectangle visualSideWays = new Rectangle();
+        public Rect hitBoxVertical = new Rect();
+        public Rect hitBoxSideWays = new Rect();
         public Portals(SolidColorBrush color)
         {
-            this.visual.Fill = color;
-            this.visual.Stroke = color;
-            this.visual.Width = 2;
-            this.visual.Height = 50;
-            Canvas.SetLeft(this.visual, 0);
-            Canvas.SetTop(this.visual, 0);
-            this.visual.Visibility = Visibility.Hidden;
+            this.visualVertical.Fill = color;
+            this.visualVertical.Stroke = color;
+            this.visualVertical.Width = 2;
+            this.visualVertical.Height = 50;
+            Canvas.SetLeft(this.visualVertical, 0);
+            Canvas.SetTop(this.visualVertical, 0);
+            this.visualVertical.Visibility = Visibility.Hidden;
+
+            this.visualSideWays.Fill = color;
+            this.visualSideWays.Stroke = color;
+            this.visualSideWays.Width = 50;
+            this.visualSideWays.Height = 2;
+            Canvas.SetLeft(this.visualSideWays, 0);
+            Canvas.SetTop(this.visualSideWays, 0);
+            this.visualSideWays.Visibility = Visibility.Hidden;
+
+
+
         }
         public void SetHitHox()
         {
-            this.hitbox.X = Canvas.GetLeft(this.visual);
-            this.hitbox.Y = Canvas.GetTop(this.visual);
-            this.hitbox.Width = this.visual.Width;
-            this.hitbox.Height = this.visual.Height;
+            this.hitBoxVertical.X = Canvas.GetLeft(this.visualVertical);
+            this.hitBoxVertical.Y = Canvas.GetTop(this.visualVertical);
+            this.hitBoxVertical.Width = this.visualVertical.Width;
+            this.hitBoxVertical.Height = this.visualVertical.Height;
+
+            this.hitBoxSideWays.X = Canvas.GetLeft(this.visualSideWays);
+            this.hitBoxSideWays.Y = Canvas.GetTop(this.visualSideWays);
+            this.hitBoxSideWays.Width = this.visualSideWays.Width;
+            this.hitBoxSideWays.Height = this.visualSideWays.Height;
         }
-        public void spawn(Bullets bullet)
+        public void spawn(Bullets bullet, int a)
         {
-            this.visual.Visibility = Visibility.Visible;
-            bullet.SetHitHox();
-            var top = Canvas.GetTop(bullet.visual);
-            var left = Canvas.GetLeft(bullet.visual);
-            Canvas.SetLeft(this.visual, left + bullet.visual.Width - 2);
-            Canvas.SetTop(this.visual, top - this.visual.Height / 2 + 5);
-            bullet.ResetBullet();
+            if (a == 1)
+            {
+
+                this.visualSideWays.Visibility = Visibility.Collapsed;
+                this.visualVertical.Visibility = Visibility.Visible;
+                bullet.SetHitHox();
+                var top = Canvas.GetTop(bullet.visual);
+                var left = Canvas.GetLeft(bullet.visual);
+                Canvas.SetLeft(this.visualVertical, left + bullet.visual.Width - 2);
+                Canvas.SetTop(this.visualVertical, top - this.visualVertical.Height / 2 + 5);
+                bullet.ResetBullet();
+            }
+            else
+            {
+                this.visualVertical.Visibility = Visibility.Collapsed;
+                this.visualSideWays.Visibility = Visibility.Visible;
+                bullet.SetHitHox();
+                var top = Canvas.GetTop(bullet.visual);
+                var left = Canvas.GetLeft(bullet.visual);
+                Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - 2);
+                Canvas.SetTop(this.visualSideWays, top - this.visualSideWays.Height / 2 + 5);
+                bullet.ResetBullet();
+            }
         }
 
     }
@@ -278,24 +324,32 @@ namespace assesmentWpf
             background.Children.Add(player.middle);
             background.Children.Add(blue.visual);
             background.Children.Add(orange.visual);
-            background.Children.Add(portal_blue.visual);
-            background.Children.Add(portal_orange.visual);
+            background.Children.Add(portal_blue.visualVertical);
+            background.Children.Add(portal_orange.visualVertical);
+            background.Children.Add(portal_blue.visualSideWays);
+            background.Children.Add(portal_orange.visualSideWays); 
             background.Children.Add(xx);
 
-            
-            
-            
-            
+
+            foreach (Walls item in blocks)
+            {
+                item.SetHitHox();
+            }
+
+
         }
 
-   
+
 
 
         public void makeWalls()
         {
             
-            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 750, 10)); ;
-            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 250, 10));
+            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 750, 10, 50, 250, "v"));
+            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 250, 10, 50, 250, "v"));
+            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 250, 10, 250, 50, "h"));
+
+
 
             foreach (Walls item in blocks)
             {
@@ -310,10 +364,10 @@ namespace assesmentWpf
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            foreach (Walls item in blocks)
-            {
-                item.SetHitHox();
-            }                           //resets all hitboxes
+            //foreach (Walls item in blocks)
+            //{
+            //    item.SetHitHox();
+            //}                           //resets all hitboxes
             blue.SetHitHox();
             orange.SetHitHox();
 
@@ -322,15 +376,32 @@ namespace assesmentWpf
 
                 if (ColisionDetc(blue.hitbox, x.hitbox))
                 {
-                    portal_blue.spawn(blue);
                     blue.shooting = false;
                     player.shooting = false;
+                    if ((string)x.visual.Tag == "v")
+                    {
+                        
+                        portal_blue.spawn(blue, 1);
+                    }
+                    else
+                    {
+
+                        portal_blue.spawn(blue, 0);
+                    }
                 }
                 if (ColisionDetc(orange.hitbox, x.hitbox))
                 {
-                    portal_orange.spawn(orange);
                     orange.shooting = false;
                     player.shooting = false;
+                    if ((string)x.visual.Tag == "v")
+                    { 
+                        portal_orange.spawn(orange, 1);
+                    }
+                    else
+                    {
+                        portal_orange.spawn(orange, 0);
+
+                    }
                 }
 
             }
