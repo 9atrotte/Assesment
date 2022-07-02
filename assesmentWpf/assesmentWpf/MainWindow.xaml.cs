@@ -84,6 +84,9 @@ namespace assesmentWpf
         public Rectangle visualSideWays = new Rectangle();
         public Rect hitBoxVertical = new Rect();
         public Rect hitBoxSideWays = new Rect();
+        public string outDir;
+
+
         public Portals(SolidColorBrush color)
         {
             this.visualVertical.Fill = color;
@@ -132,15 +135,17 @@ namespace assesmentWpf
                 bullet.ResetBullet();
 
 
-                if (left == wleft || left > wleft && left < wleft + 10) 
+                if (left == wleft || left > wleft && left < wleft + 10) //left of vertical wall
                 {
                     Canvas.SetLeft(this.visualVertical, Canvas.GetLeft(w.visual) - 2);
                     Canvas.SetTop(this.visualVertical, top - this.visualVertical.Height / 2 + 5);
+                    this.outDir = "left";
                 }
                 else
                 {
-                    Canvas.SetLeft(this.visualVertical, Canvas.GetLeft(w.visual) + w.visual.Width);
+                    Canvas.SetLeft(this.visualVertical, Canvas.GetLeft(w.visual) + w.visual.Width);//right of vertical wall
                     Canvas.SetTop(this.visualVertical, top - this.visualVertical.Height / 2 + 5);
+                    this.outDir = "right";
                 }
 
                 this.SetHitHox();
@@ -158,15 +163,17 @@ namespace assesmentWpf
 
                 bullet.ResetBullet();
 
-                if (top == wtop || top > wtop && top < wtop + 10)
+                if (top == wtop || top > wtop && top < wtop + 10)//top of horizontal wall
                 {
                     Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - 2);
                     Canvas.SetTop(this.visualSideWays, Canvas.GetTop(w.visual) - 2);
+                    this.outDir = "up";
                 }
                 else
                 {
-                    Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - 2);
+                    Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - 2);//bottom of horizontral wall
                     Canvas.SetTop(this.visualSideWays, Canvas.GetTop(w.visual) + w.visual.Height);
+                    this.outDir = "down";
                 }
 
                 this.SetHitHox();
@@ -327,6 +334,7 @@ namespace assesmentWpf
         public string direction;
         public Ellipse nose = new Ellipse();
         public Ellipse middle = new Ellipse();
+        public int canTele = 1;
 
         public Ball(int width, int height, int x, int y)
         { 
@@ -533,9 +541,9 @@ namespace assesmentWpf
 
 
 
-            
 
-            teleportCheck();
+            
+            if (ball.canTele == 1) { teleportCheck(); }
             
 
 
@@ -606,22 +614,52 @@ namespace assesmentWpf
 
         public void teleportCheck()
         {
+            DispatcherTimer wait = new DispatcherTimer();
+            wait.Tick += Wait_Tick;
+            wait.Interval = new TimeSpan(0, 0, 5);
+
             if (ball.hitbox.IntersectsWith(portal_blue.hitBoxVertical) || ball.hitbox.IntersectsWith(portal_blue.hitBoxSideWays))//blue portal 
             {
                 if (portal_orange.visualVertical.Visibility == Visibility.Visible)//vertical
                 {
-                    Canvas.SetLeft(ball.visual, Canvas.GetLeft(portal_orange.visualVertical) + 3);
+                    Canvas.SetLeft(ball.visual, Canvas.GetLeft(portal_orange.visualVertical));
                     Canvas.SetTop(ball.visual, Canvas.GetTop(portal_orange.visualVertical));
-                    ball.direction = "right";
                 }
                 else if (portal_orange.visualSideWays.Visibility == Visibility.Visible)//sideways 
                 {
                     Canvas.SetLeft(ball.visual, Canvas.GetLeft(portal_orange.visualSideWays));
-                    Canvas.SetTop(ball.visual, Canvas.GetTop(portal_orange.visualSideWays) + 3);
-                    ball.direction = "down";
+                    Canvas.SetTop(ball.visual, Canvas.GetTop(portal_orange.visualSideWays));
                 }
+                ball.direction = portal_orange.outDir;
+                ball.canTele = 0;
+                wait.Start();
+            }
+
+
+            if (ball.hitbox.IntersectsWith(portal_orange.hitBoxVertical) || ball.hitbox.IntersectsWith(portal_orange.hitBoxSideWays))//blue portal 
+            {
+                if (portal_blue.visualVertical.Visibility == Visibility.Visible)//vertical
+                {
+                    Canvas.SetLeft(ball.visual, Canvas.GetLeft(portal_blue.visualVertical));
+                    Canvas.SetTop(ball.visual, Canvas.GetTop(portal_blue.visualVertical));
+                }
+                else if (portal_blue.visualSideWays.Visibility == Visibility.Visible)//sideways 
+                {
+                    Canvas.SetLeft(ball.visual, Canvas.GetLeft(portal_blue.visualSideWays));
+                    Canvas.SetTop(ball.visual, Canvas.GetTop(portal_blue.visualSideWays));
+                }
+                ball.direction = portal_blue.outDir;
+                ball.canTele = 0;
+                wait.Start();
+            }
+
+            void Wait_Tick(object sender, EventArgs e)
+            {
+                ball.canTele = 1;
+                wait.Stop();
             }
         }
+
 
         static double GetAngle(Point mouse)
         {
