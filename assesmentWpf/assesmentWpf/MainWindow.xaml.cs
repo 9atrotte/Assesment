@@ -506,7 +506,7 @@ namespace assesmentWpf
         public void makeWalls()
         {
             
-            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 51, 1080-70, 1920-150, 50, "h"));//floor
+            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080-70, 1920-150, 50, "h"));//floor
             blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 1920-50, 0, 50, 1080, "v")); //right wall
             blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 100, 0, 1870, 50, "h"));//celling
             blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 0, 0, 50, 1920, "v"));//left wall
