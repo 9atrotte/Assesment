@@ -53,8 +53,6 @@ namespace assesmentWpf
             Canvas.SetBottom(this.visual, 60);
         }
     }
-
-
     public class Walls
     {
         public Rectangle visual = new Rectangle();
@@ -126,19 +124,34 @@ namespace assesmentWpf
             this.hitBoxSideWays.Width = this.visualSideWays.Width;
             this.hitBoxSideWays.Height = this.visualSideWays.Height;
         }
-        public void spawn(Bullets bullet, int a)
+        public void spawn(Bullets bullet, int a, Walls w) //a = 1 = v
         {
             if (a == 1)
             {
-
                 this.visualSideWays.Visibility = Visibility.Collapsed;
                 this.visualVertical.Visibility = Visibility.Visible;
                 bullet.SetHitHox();
                 var top = Canvas.GetTop(bullet.visual);
                 var left = Canvas.GetLeft(bullet.visual);
-                Canvas.SetLeft(this.visualVertical, left + bullet.visual.Width - 2);
-                Canvas.SetTop(this.visualVertical, top - this.visualVertical.Height / 2 + 5);
+                var wleft = Canvas.GetLeft(w.visual);
+                var wtop = Canvas.GetTop(w.visual);
+
                 bullet.ResetBullet();
+
+
+                if (left == wleft || left > wleft && left < wleft + 5) 
+                {
+                    Canvas.SetLeft(this.visualVertical, Canvas.GetLeft(w.visual) - 2);
+                    Canvas.SetTop(this.visualVertical, top - this.visualVertical.Height / 2 + 5);
+                }
+                else
+                {
+                    Canvas.SetLeft(this.visualVertical, Canvas.GetLeft(w.visual) + w.visual.Width);
+                    Canvas.SetTop(this.visualVertical, top - this.visualVertical.Height / 2 + 5);
+                }
+
+
+
             }
             else
             {
@@ -147,11 +160,33 @@ namespace assesmentWpf
                 bullet.SetHitHox();
                 var top = Canvas.GetTop(bullet.visual);
                 var left = Canvas.GetLeft(bullet.visual);
-                Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - 2);
-                Canvas.SetTop(this.visualSideWays, top - this.visualSideWays.Height / 2 + 5);
+                var wleft = Canvas.GetLeft(w.visual);
+                var wtop = Canvas.GetTop(w.visual);
+
                 bullet.ResetBullet();
+
+                if (top == wtop || top > wtop && top < wtop + 5)
+                {
+                    Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - 2);
+                    Canvas.SetTop(this.visualSideWays, Canvas.GetTop(w.visual) - 2);
+                }
+                else
+                {
+                    Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - 2);
+                    Canvas.SetTop(this.visualSideWays, Canvas.GetTop(w.visual) + w.visual.Height);
+                }
+
+
             }
-        }
+
+
+
+
+
+
+
+               
+            }
 
     }
     public class Player
@@ -248,7 +283,17 @@ namespace assesmentWpf
             {
                 if (x < 0) { x -= 5; }
                 else if (x > 0) { x += 5; }
-                
+
+                if (this.x > 1920 || this.x < -1920)
+                {
+                    this.shooting = false;
+                    Window1.game.blue.shooting = false;
+                    Window1.game.orange.shooting = false;
+                    shootingTimer.Stop();
+                    Window1.game.blue.ResetBullet();
+                    Window1.game.orange.ResetBullet();
+                }
+
 
                 if (witchbul == 1)
                 {
@@ -345,9 +390,11 @@ namespace assesmentWpf
         public void makeWalls()
         {
             
-            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 750, 10, 50, 250, "v"));
-            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 250, 10, 50, 250, "v"));
-            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 250, 10, 250, 50, "h"));
+            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 0, 1080-70, 1920-150, 50, "h"));//floor
+            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 1920-50, 0, 50, 1080, "v")); //right wall
+            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 100, 0, 1870, 50, "h"));//celling
+            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 0, 0, 50, 1920, "v"));//left wall
+
 
 
 
@@ -381,12 +428,12 @@ namespace assesmentWpf
                     if ((string)x.visual.Tag == "v")
                     {
                         
-                        portal_blue.spawn(blue, 1);
+                        portal_blue.spawn(blue, 1, x);
                     }
                     else
                     {
 
-                        portal_blue.spawn(blue, 0);
+                        portal_blue.spawn(blue, 0, x);
                     }
                 }
                 if (ColisionDetc(orange.hitbox, x.hitbox))
@@ -395,11 +442,11 @@ namespace assesmentWpf
                     player.shooting = false;
                     if ((string)x.visual.Tag == "v")
                     { 
-                        portal_orange.spawn(orange, 1);
+                        portal_orange.spawn(orange, 1, x);
                     }
                     else
                     {
-                        portal_orange.spawn(orange, 0);
+                        portal_orange.spawn(orange, 0, x);
 
                     }
                 }
