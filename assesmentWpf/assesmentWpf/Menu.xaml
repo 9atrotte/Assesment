@@ -5,9 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:assesmentWpf"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Menu" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="CanMinimize" ShowInTaskbar="False">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Height="35" Margin="102,90,0,0" VerticalAlignment="Top" Width="88" Click="Button_Click"/>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                    <TransformGroup>
+                        <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                        <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                        <RotateTransform Angle="90" CenterX="0.5" CenterY="0.5"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="Black" Offset="0"/>
+                <GradientStop Color="Blue" Offset="1"/>
+                <GradientStop Color="#FEFFBA01" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Button x:Name="btn_start" Content="Start" HorizontalAlignment="Center" Height="35" Margin="0,195,0,0" VerticalAlignment="Top" Width="88" Click="Start_Click"/>
+        <Button x:Name="btn_credits" Content="Credits" HorizontalAlignment="Center" Height="35" Margin="0,275,0,0" VerticalAlignment="Top" Width="88" Click="btn_credits_Click" />
+        <Button x:Name="btn_howtoplay" Content="How to play" HorizontalAlignment="Center" Height="35" Margin="0,235,0,0" VerticalAlignment="Top" Width="88" Click="btn_howtoplay_Click" />
 
     </Grid>
 </Window>

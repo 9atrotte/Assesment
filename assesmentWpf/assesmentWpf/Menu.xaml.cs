@@ -29,11 +29,21 @@ namespace assesmentWpf
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Start_Click(object sender, RoutedEventArgs e)
         {
             game.Show();
             game.dispatcherTimer.Start();
             this.Close();
+        }
+
+        private void btn_howtoplay_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_credits_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
