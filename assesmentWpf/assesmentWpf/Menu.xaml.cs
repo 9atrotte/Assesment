@@ -22,28 +22,35 @@ namespace assesmentWpf
 
 
         public static MainWindow game = new MainWindow();
-
+        public static Credits credits = new Credits();
+        public static HowToPlay howToPlay = new HowToPlay();
 
         public Window1()
         {
             InitializeComponent();
         }
 
+        
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             game.Show();
             game.dispatcherTimer.Start();
+            game.ballMoveTimer.Start();
             this.Close();
         }
 
         private void btn_howtoplay_Click(object sender, RoutedEventArgs e)
         {
-
+            howToPlay.Show();
+            //this.Close();
         }
 
         private void btn_credits_Click(object sender, RoutedEventArgs e)
         {
+            credits.Show();
+            //this.Close();
 
+           
         }
     }
 }

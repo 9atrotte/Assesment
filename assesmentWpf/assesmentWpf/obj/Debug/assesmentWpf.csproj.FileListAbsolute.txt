@@ -48,3 +48,7 @@ K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.g.resources
 K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.Properties.Resources.resources
 K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.GenerateResource.cache
 K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.CoreCompileInputs.cache
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Credits.g.cs
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\HowToPlay.g.cs
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Credits.baml
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\HowToPlay.baml

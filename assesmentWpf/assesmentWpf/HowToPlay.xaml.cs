@@ -23,5 +23,10 @@ namespace assesmentWpf
         {
             InitializeComponent();
         }
+        private void btn_back_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
     }
 }

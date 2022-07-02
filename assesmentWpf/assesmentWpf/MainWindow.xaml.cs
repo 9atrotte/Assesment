@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace assesmentWpf
 {
@@ -139,7 +132,7 @@ namespace assesmentWpf
                 bullet.ResetBullet();
 
 
-                if (left == wleft || left > wleft && left < wleft + 5) 
+                if (left == wleft || left > wleft && left < wleft + 10) 
                 {
                     Canvas.SetLeft(this.visualVertical, Canvas.GetLeft(w.visual) - 2);
                     Canvas.SetTop(this.visualVertical, top - this.visualVertical.Height / 2 + 5);
@@ -150,7 +143,7 @@ namespace assesmentWpf
                     Canvas.SetTop(this.visualVertical, top - this.visualVertical.Height / 2 + 5);
                 }
 
-
+                this.SetHitHox();
 
             }
             else
@@ -165,7 +158,7 @@ namespace assesmentWpf
 
                 bullet.ResetBullet();
 
-                if (top == wtop || top > wtop && top < wtop + 5)
+                if (top == wtop || top > wtop && top < wtop + 10)
                 {
                     Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - 2);
                     Canvas.SetTop(this.visualSideWays, Canvas.GetTop(w.visual) - 2);
@@ -176,7 +169,7 @@ namespace assesmentWpf
                     Canvas.SetTop(this.visualSideWays, Canvas.GetTop(w.visual) + w.visual.Height);
                 }
 
-
+                this.SetHitHox();
             }
 
 
@@ -327,20 +320,129 @@ namespace assesmentWpf
 
     }
 
+    public class Ball
+    {
+        public Ellipse visual = new Ellipse();
+        public Rect hitbox = new Rect();
+        public string direction;
+        public Ellipse nose = new Ellipse();
+        public Ellipse middle = new Ellipse();
+
+        public Ball(int width, int height, int x, int y)
+        { 
+
+            this.visual.Width = width;
+            this.visual.Height = height;
+            this.visual.Fill = new SolidColorBrush(Colors.Gray);
+            this.visual.Stroke = new SolidColorBrush(Colors.Gray);
+
+            this.nose.Width = 2;
+            this.nose.Height = 2;
+            this.nose.Fill = new SolidColorBrush(Colors.Black);
+            this.nose.Stroke = new SolidColorBrush(Colors.Black);
+
+            this.middle.Width = 1;
+            this.middle.Height = 1;
+            Canvas.SetLeft(this.middle, x + this.visual.Width / 2);
+            Canvas.SetTop(this.middle, y + this.visual.Height / 2);
+            this.middle.Fill = new SolidColorBrush(Colors.Red);
+
+            Canvas.SetLeft(this.visual, x);
+            Canvas.SetTop(this.visual, y);
+
+            this.hitbox.Width = width;
+            this.hitbox.Height = height;
+
+            this.resetNose(x, y, "down");
+        }
+
+        public void SetHitHox()
+        {
+            this.hitbox.X = Canvas.GetLeft(this.visual);
+            this.hitbox.Y = Canvas.GetTop(this.visual);
+            this.hitbox.Width = this.visual.Width;
+            this.hitbox.Height = this.visual.Height;
+        }
+
+        public void resetNose(double x, double y, string dir)
+        {
+            Canvas.SetLeft(this.middle, x + this.visual.Width / 2);
+            Canvas.SetTop(this.middle, y + this.visual.Height / 2);
+
+            switch (dir)
+            {
+                case "up":
+                    Canvas.SetLeft(this.nose, x + this.visual.Width / 2);
+                    Canvas.SetTop(this.nose, y + this.visual.Height * 0.25);
+                    break;
+                case "right":
+                    Canvas.SetLeft(this.nose, x + this.visual.Width * 0.75);
+                    Canvas.SetTop(this.nose, y + this.visual.Height / 2);
+                    break;
+                case "down":
+                    Canvas.SetLeft(this.nose, x + this.visual.Width / 2);
+                    Canvas.SetTop(this.nose, y + this.visual.Height * 0.75);
+                    break;
+                case "left":
+                    Canvas.SetLeft(this.nose, x + this.visual.Width * 0.25);
+                    Canvas.SetTop(this.nose, y + this.visual.Height / 2);
+                    break;
+                default:
+                    break;
+            }
+
+           
+        }
+        public void move()
+        {
+
+            var vtop = Canvas.GetTop(this.visual);
+            var vleft = Canvas.GetLeft(this.visual);
+            var mtop = Canvas.GetTop(this.middle);
+            var mleft = Canvas.GetLeft(this.middle);
+            var ntop = Canvas.GetTop(this.nose);
+            var nleft = Canvas.GetLeft(this.nose);
+
+
+
+            var xdif = nleft - mleft;
+            var ydif = ntop - mtop;
+
+            
+            if (xdif != 0) {xdif = xdif / Math.Abs(xdif);}
+            if (ydif != 0) { ydif = ydif / Math.Abs(ydif); } 
+
+            Canvas.SetLeft(this.visual, vleft + xdif);
+            Canvas.SetTop(this.visual, vtop + ydif);
+
+            mtop = Canvas.GetTop(this.visual);
+            mleft = Canvas.GetLeft(this.visual);
+            this.resetNose(mleft, mtop, this.direction);
+
+
+        
+        }
+    
+    
+    
+    
+    
+    }
 
     public partial class MainWindow : Window
     {
-        
+        public DispatcherTimer ballMoveTimer = new DispatcherTimer();
         public Point pos;
         public double angle;
-        public  Label xx = new Label();
-        public  Portals portal_blue = new Portals(new SolidColorBrush(Colors.Blue));
-        public  Portals portal_orange = new Portals(new SolidColorBrush(Colors.Orange));
-        public  Bullets blue = new Bullets(new SolidColorBrush(Colors.Blue));
-        public  Bullets orange = new Bullets(new SolidColorBrush(Colors.Orange));
-        public  List<Walls> blocks = new List<Walls>();
-        public  Player player = new Player();
-        public  DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        public Label xx = new Label();
+        public Portals portal_blue = new Portals(new SolidColorBrush(Colors.Blue));
+        public Portals portal_orange = new Portals(new SolidColorBrush(Colors.Orange));
+        public Bullets blue = new Bullets(new SolidColorBrush(Colors.Blue));
+        public Bullets orange = new Bullets(new SolidColorBrush(Colors.Orange));
+        public List<Walls> blocks = new List<Walls>();
+        public Player player = new Player();
+        public DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        public Ball ball = new Ball(40, 40, 100, 1);
 
 
         public MainWindow()
@@ -361,7 +463,10 @@ namespace assesmentWpf
 
             InitializeComponent();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            dispatcherTimer.Interval = new TimeSpan(1);
+
+            ballMoveTimer.Tick += BallMoveTimer_Tick;
+            ballMoveTimer.Interval = new TimeSpan(0,0,0,0,1);
 
             makeWalls();
             background.Children.Add(player.visual);
@@ -374,6 +479,9 @@ namespace assesmentWpf
             background.Children.Add(portal_blue.visualSideWays);
             background.Children.Add(portal_orange.visualSideWays); 
             background.Children.Add(xx);
+            background.Children.Add(ball.visual);
+            background.Children.Add(ball.nose);
+            background.Children.Add(ball.middle);
 
 
             foreach (Walls item in blocks)
@@ -381,19 +489,20 @@ namespace assesmentWpf
                 item.SetHitHox();
             }
 
+            ball.direction = "down";
 
         }
-
 
 
 
         public void makeWalls()
         {
             
-            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 0, 1080-70, 1920-150, 50, "h"));//floor
+            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 51, 1080-70, 1920-150, 50, "h"));//floor
             blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 1920-50, 0, 50, 1080, "v")); //right wall
             blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 100, 0, 1870, 50, "h"));//celling
             blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 0, 0, 50, 1920, "v"));//left wall
+            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 1920/2, 0, 50, 1920, "v"));//middle
 
 
 
@@ -406,8 +515,11 @@ namespace assesmentWpf
 
 
         }
-       
 
+        private void BallMoveTimer_Tick(object sender, EventArgs e)
+        {
+            ball.move();
+        }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -417,6 +529,15 @@ namespace assesmentWpf
             //}                           //resets all hitboxes
             blue.SetHitHox();
             orange.SetHitHox();
+            ball.SetHitHox();
+
+
+
+            
+
+            teleportCheck();
+            
+
 
             foreach (Walls x in blocks)
             {
@@ -476,16 +597,32 @@ namespace assesmentWpf
             lbl_output_pos.Content = pos.ToString();
             RotateTransform rotateTransform = new RotateTransform(angle,0,player.gun.Height/2);
             player.gun.RenderTransform = rotateTransform;
-       
-        
+
+            
+
+
+
         }
 
-      
+        public void teleportCheck()
+        {
+            if (ball.hitbox.IntersectsWith(portal_blue.hitBoxVertical) || ball.hitbox.IntersectsWith(portal_blue.hitBoxSideWays))//blue portal 
+            {
+                if (portal_orange.visualVertical.Visibility == Visibility.Visible)//vertical
+                {
+                    Canvas.SetLeft(ball.visual, Canvas.GetLeft(portal_orange.visualVertical) + 3);
+                    Canvas.SetTop(ball.visual, Canvas.GetTop(portal_orange.visualVertical));
+                    ball.direction = "right";
+                }
+                else if (portal_orange.visualSideWays.Visibility == Visibility.Visible)//sideways 
+                {
+                    Canvas.SetLeft(ball.visual, Canvas.GetLeft(portal_orange.visualSideWays));
+                    Canvas.SetTop(ball.visual, Canvas.GetTop(portal_orange.visualSideWays) + 3);
+                    ball.direction = "down";
+                }
+            }
+        }
 
-
-
-
-        
         static double GetAngle(Point mouse)
         {
             if (mouse.X > 0 && mouse.Y > 0) //bottom right
@@ -517,8 +654,6 @@ namespace assesmentWpf
             //return (Math.Atan(mouse.Y / mouse.X)) * (180 / Math.PI);
 
         }
-
-
         public bool ColisionDetc(Rect a, Rect b)
         {
             if (a.IntersectsWith(b))
