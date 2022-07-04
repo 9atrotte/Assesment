@@ -439,6 +439,7 @@ namespace assesmentWpf
 
     public partial class MainWindow : Window
     {
+        public static Window1 menu = new Window1();
         public DispatcherTimer ballMoveTimer = new DispatcherTimer();
         public Point pos;
         public double angle;
@@ -451,16 +452,19 @@ namespace assesmentWpf
         public Player player = new Player();
         public DispatcherTimer dispatcherTimer = new DispatcherTimer();
         public Ball ball = new Ball(40, 40, 100, 1);
-
+        public Button backToMenu = new Button();
 
         public MainWindow()
         {
-            
-            
-            
 
-            
 
+
+            backToMenu.Content = "Exit";
+            backToMenu.Width = 25;
+            backToMenu.Height = 25;
+            backToMenu.Click += gameExit;
+            Canvas.SetLeft(backToMenu, 1920 - backToMenu.Width);
+            Canvas.SetTop(backToMenu, 0);
 
 
             xx.Height = 30;
@@ -490,7 +494,7 @@ namespace assesmentWpf
             background.Children.Add(ball.visual);
             background.Children.Add(ball.nose);
             background.Children.Add(ball.middle);
-
+            background.Children.Add(backToMenu);
 
             foreach (Walls item in blocks)
             {
@@ -501,7 +505,11 @@ namespace assesmentWpf
 
         }
 
-
+        public void gameExit(object sender, RoutedEventArgs e)
+        {
+            MainWindow.menu.Show();
+            Window1.game.Hide();
+        }
 
         public void makeWalls()
         {

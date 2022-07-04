@@ -36,7 +36,7 @@ namespace assesmentWpf
             game.Show();
             game.dispatcherTimer.Start();
             game.ballMoveTimer.Start();
-            this.Close();
+            this.Hide();
         }
 
         private void btn_howtoplay_Click(object sender, RoutedEventArgs e)
@@ -52,5 +52,9 @@ namespace assesmentWpf
 
            
         }
+
+
+
+        
     }
 }

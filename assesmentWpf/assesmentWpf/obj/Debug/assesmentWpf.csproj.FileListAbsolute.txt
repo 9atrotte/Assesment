@@ -52,3 +52,7 @@ C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\asses
 C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\HowToPlay.g.cs
 C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Credits.baml
 C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\HowToPlay.baml
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Credits.g.cs
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\HowToPlay.g.cs
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Credits.baml
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\HowToPlay.baml
