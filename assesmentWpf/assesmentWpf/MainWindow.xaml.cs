@@ -135,7 +135,7 @@ namespace assesmentWpf
                 bullet.ResetBullet();
 
 
-                if (left == wleft || left > wleft && left < wleft + 10) //left of vertical wall
+                if (left == wleft || left > wleft && left < wleft + 25) //left of vertical wall
                 {
                     Canvas.SetLeft(this.visualVertical, Canvas.GetLeft(w.visual) - 2);
                     Canvas.SetTop(this.visualVertical, top - this.visualVertical.Height / 2 + 5);
@@ -163,7 +163,7 @@ namespace assesmentWpf
 
                 bullet.ResetBullet();
 
-                if (top == wtop || top > wtop && top < wtop + 10)//top of horizontal wall
+                if (top == wtop || top > wtop && top < wtop + 25)//top of horizontal wall
                 {
                     Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - 2);
                     Canvas.SetTop(this.visualSideWays, Canvas.GetTop(w.visual) - 2);
@@ -456,7 +456,7 @@ namespace assesmentWpf
 
         public MainWindow()
         {
-
+            
 
 
             backToMenu.Content = "Exit";
@@ -502,7 +502,7 @@ namespace assesmentWpf
             }
 
             ball.direction = "down";
-
+            GC.Collect();
         }
 
         public void gameExit(object sender, RoutedEventArgs e)
@@ -539,6 +539,7 @@ namespace assesmentWpf
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
+            GC.Collect();
             //foreach (Walls item in blocks)
             //{
             //    item.SetHitHox();
@@ -617,7 +618,7 @@ namespace assesmentWpf
             
 
 
-
+            GC.Collect();
         }
 
         public void teleportCheck()

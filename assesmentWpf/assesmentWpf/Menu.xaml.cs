@@ -22,6 +22,8 @@ namespace assesmentWpf
 
 
         public static MainWindow game = new MainWindow();
+        public static MainWindow game2 = new MainWindow();
+        public static MainWindow game3 = new MainWindow();
         public static Credits credits = new Credits();
         public static HowToPlay howToPlay = new HowToPlay();
 
@@ -36,6 +38,8 @@ namespace assesmentWpf
             game.Show();
             game.dispatcherTimer.Start();
             game.ballMoveTimer.Start();
+            
+
             this.Hide();
         }
 
@@ -53,8 +57,9 @@ namespace assesmentWpf
            
         }
 
-
-
-        
+        private void btn_exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
