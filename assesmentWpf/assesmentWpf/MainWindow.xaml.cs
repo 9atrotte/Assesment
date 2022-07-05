@@ -127,15 +127,15 @@ namespace assesmentWpf
                 this.visualSideWays.Visibility = Visibility.Collapsed;
                 this.visualVertical.Visibility = Visibility.Visible;
                 bullet.SetHitHox();
-                var top = Canvas.GetTop(bullet.visual);
+                var top = Canvas.GetTop(bullet.visual);//bul top/left
                 var left = Canvas.GetLeft(bullet.visual);
-                var wleft = Canvas.GetLeft(w.visual);
+                var wleft = Canvas.GetLeft(w.visual);//wall top/left
                 var wtop = Canvas.GetTop(w.visual);
 
                 bullet.ResetBullet();
 
 
-                if (left == wleft || left > wleft && left < wleft + 25) //left of vertical wall
+                if (left == wleft || left > wleft - bullet.visual.Width && left < wleft + 25) //left of vertical wall
                 {
                     Canvas.SetLeft(this.visualVertical, Canvas.GetLeft(w.visual) - 2);
                     Canvas.SetTop(this.visualVertical, top - this.visualVertical.Height / 2 + 5);
@@ -163,7 +163,7 @@ namespace assesmentWpf
 
                 bullet.ResetBullet();
 
-                if (top == wtop || top > wtop && top < wtop + 25)//top of horizontal wall
+                if (top == wtop || top > wtop - bullet.visual.Width && top < wtop + 25)//top of horizontal wall
                 {
                     Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - 2);
                     Canvas.SetTop(this.visualSideWays, Canvas.GetTop(w.visual) - 2);
@@ -196,9 +196,13 @@ namespace assesmentWpf
         public Rect hitbox = new Rect();
         public Rectangle middle = new Rectangle();
         public double x = 0;
+        public double y = 0;
         public double xpos = 0;
         public double ypos = 0;
         public bool shooting = false;
+        public int bullspeed = 10;
+        public double yinc;
+        public double xinc;
 
         public Player()
         {
@@ -238,14 +242,31 @@ namespace assesmentWpf
 
         public void Shoot(int witchbul, Point direction, double ang)
         {
-            this.x = 1;
+            var angle = (Math.Atan(Math.Abs(direction.Y) / Math.Abs(direction.X)));
+            yinc = Math.Sin(angle) * this.bullspeed;
+            xinc = Math.Cos(angle) * this.bullspeed;
+            this.x = 1; //x counter for movement 
+            this.y = 1; //y counter for movement
             this.shooting = true;
+
+
+
+
+
+
             if (direction.X < 0)
             {
-                this.x *= -1;
+                this.xinc *= -1;
+            }
+            if (direction.Y < 0)
+            {
+                this.yinc *= -1;
             }
 
-            
+
+
+
+
             if (witchbul == 1) 
             {
                 Window1.game.blue.shooting = true;
@@ -264,25 +285,35 @@ namespace assesmentWpf
 
             }
 
+
+            
+
+
+            
+
+
+
+
+
+
+
+
+
+
             DispatcherTimer shootingTimer = new DispatcherTimer();
             shootingTimer.Tick += shootingTimer_Tick;
             shootingTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
 
 
             shootingTimer.Start();
-            double Eqauation()
-            {
-                
-                var equat = direction.Y / direction.X;
-                return equat * this.x + this.ypos; 
-            }
+            
 
 
 
             void shootingTimer_Tick(object sender, EventArgs e)
             {
-                if (x < 0) { x -= 5; }
-                else if (x > 0) { x += 5; }
+                this.x += xinc;
+                this.y += yinc;
 
                 if (this.x > 1920 || this.x < -1920)
                 {
@@ -298,7 +329,11 @@ namespace assesmentWpf
                 if (witchbul == 1)
                 {
                     Canvas.SetLeft(Window1.game.blue.visual, (this.x + this.xpos));
-                    Canvas.SetTop(Window1.game.blue.visual, Eqauation());
+                    
+                    
+                    Canvas.SetTop(Window1.game.blue.visual, (this.y + this.ypos));
+                    
+                    
                     Window1.game.xx.Content = this.x;
                     if (this.shooting == false)
                     {
@@ -310,7 +345,12 @@ namespace assesmentWpf
                 else
                 {
                     Canvas.SetLeft(Window1.game.orange.visual, (this.x + this.xpos));
-                    Canvas.SetTop(Window1.game.orange.visual, Eqauation());
+
+
+                    Canvas.SetTop(Window1.game.orange.visual, (this.y + this.ypos));
+                    
+                    
+                    
                     Window1.game.xx.Content = this.x;
                     if (this.shooting == false)
                     {
@@ -323,6 +363,10 @@ namespace assesmentWpf
                 
 
             }
+        
+        
+        
+        
         }
 
     }
