@@ -32,6 +32,7 @@ namespace assesmentWpf
         //public static MainWindow game3 = new MainWindow(3);
         public static Credits credits = new Credits();
         public static HowToPlay howToPlay = new HowToPlay();
+        public static LoadingScreen LoadingScreen = new LoadingScreen();
 
         public Window1()
         {
@@ -41,10 +42,9 @@ namespace assesmentWpf
         
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            game.Show();
-            game.dispatcherTimer.Start();
-            game.ballMoveTimer.Start();
-            
+            LoadingScreen.Show();
+
+
 
             this.Hide();
         }
