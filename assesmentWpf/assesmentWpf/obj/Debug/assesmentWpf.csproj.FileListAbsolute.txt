@@ -1,0 +1,58 @@
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csprojAssemblyReference.cache
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\MainWindow.g.cs
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\App.g.cs
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf_MarkupCompile.cache
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf_MarkupCompile.lref
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\bin\Debug\assesmentWpf.exe.config
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\bin\Debug\assesmentWpf.exe
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\bin\Debug\assesmentWpf.pdb
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\MainWindow.baml
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.g.resources
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.Properties.Resources.resources
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.GenerateResource.cache
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.CoreCompileInputs.cache
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.exe
+K:\12AI\AssesmentDev\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.pdb
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\bin\Debug\assesmentWpf.exe.config
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\bin\Debug\assesmentWpf.exe
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\bin\Debug\assesmentWpf.pdb
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.AssemblyReference.cache
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.SuggestedBindingRedirects.cache
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\MainWindow.g.cs
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\App.g.cs
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf_MarkupCompile.cache
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf_MarkupCompile.lref
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\MainWindow.baml
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.g.resources
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.Properties.Resources.resources
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.GenerateResource.cache
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.CoreCompileInputs.cache
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.exe
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.pdb
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Menu.g.cs
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Menu.baml
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csprojAssemblyReference.cache
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\MainWindow.g.cs
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Menu.g.cs
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\App.g.cs
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf_MarkupCompile.cache
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf_MarkupCompile.lref
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.exe
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.pdb
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\bin\Debug\assesmentWpf.exe.config
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\bin\Debug\assesmentWpf.exe
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\bin\Debug\assesmentWpf.pdb
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\MainWindow.baml
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Menu.baml
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.g.resources
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.Properties.Resources.resources
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.GenerateResource.cache
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\assesmentWpf.csproj.CoreCompileInputs.cache
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Credits.g.cs
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\HowToPlay.g.cs
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Credits.baml
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\HowToPlay.baml
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Credits.g.cs
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\HowToPlay.g.cs
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Credits.baml
+K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\HowToPlay.baml

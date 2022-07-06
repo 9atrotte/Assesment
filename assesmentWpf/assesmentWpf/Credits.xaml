@@ -1,0 +1,13 @@
+﻿<Window x:Class="assesmentWpf.Credits"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:assesmentWpf"
+        mc:Ignorable="d"
+        Title="Credits" Height="450" Width="800" Background="Black" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Maximized" ShowInTaskbar="False">
+    <Grid>
+        <Label Content="Created by: Alexander Trotter&#xD;&#xA;Designed by: Alexander Trotter&#xD;&#xA;" HorizontalAlignment="Center" Height="301" VerticalAlignment="Center" Width="548" FontWeight="Bold" Foreground="White" FontSize="20" FontStyle="Normal" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="btn_back" Margin="10,387,0,0" Click="btn_back_Click" Content="Back" Background="#FF444141" Foreground="White" Height="37" Width="73"/>
+    </Grid>
+</Window>
