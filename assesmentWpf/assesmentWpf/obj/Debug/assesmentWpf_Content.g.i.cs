@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("sprites/skybackground.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("background2.jpg")]
 
 

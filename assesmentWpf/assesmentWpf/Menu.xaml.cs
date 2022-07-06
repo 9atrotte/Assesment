@@ -21,9 +21,15 @@ namespace assesmentWpf
     {
 
 
-        public static MainWindow game = new MainWindow();
-        public static MainWindow game2 = new MainWindow();
-        public static MainWindow game3 = new MainWindow();
+
+
+
+
+
+
+        public static MainWindow game = new MainWindow(1);
+        //public static MainWindow game2 = new MainWindow(2);
+        //public static MainWindow game3 = new MainWindow(3);
         public static Credits credits = new Credits();
         public static HowToPlay howToPlay = new HowToPlay();
 

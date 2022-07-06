@@ -111,17 +111,18 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="sprites\Thumbs.db" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="sprites\gun.png" />
-    <Resource Include="sprites\player.gif" />
+    <Resource Include="sprites\background.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="sprites\skyBackground.png" />
+    <Resource Include="sprites\background2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

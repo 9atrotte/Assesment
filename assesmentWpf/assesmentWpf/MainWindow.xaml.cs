@@ -38,10 +38,10 @@ namespace assesmentWpf
             this.hitbox.Width = this.visual.Width;
             this.hitbox.Height = this.visual.Height;
         }
-        public void ResetBullet()
+        public void ResetBullet(Player player)
         {
-            Canvas.SetLeft(this.visual, Canvas.GetLeft(Window1.game.player.middle) - 3);
-            Canvas.SetTop(this.visual, Canvas.GetTop(Window1.game.player.middle) - 3);
+            Canvas.SetLeft(this.visual, Canvas.GetLeft(player.middle) - 3);
+            Canvas.SetTop(this.visual, Canvas.GetTop(player.middle) - 3);
             Canvas.SetRight(this.visual, 60);
             Canvas.SetBottom(this.visual, 60);
         }
@@ -120,7 +120,7 @@ namespace assesmentWpf
             this.hitBoxSideWays.Width = this.visualSideWays.Width;
             this.hitBoxSideWays.Height = this.visualSideWays.Height;
         }
-        public void spawn(Bullets bullet, int a, Walls w) //a = 1 = v
+        public void spawn(Bullets bullet, int a, Walls w, Player player) //a = 1 = v
         {
             if (a == 1)
             {
@@ -132,7 +132,7 @@ namespace assesmentWpf
                 var wleft = Canvas.GetLeft(w.visual);//wall top/left
                 var wtop = Canvas.GetTop(w.visual);
 
-                bullet.ResetBullet();
+                bullet.ResetBullet(player);
 
 
                 if (left == wleft || left > wleft - bullet.visual.Width && left < wleft + 25) //left of vertical wall
@@ -161,7 +161,7 @@ namespace assesmentWpf
                 var wleft = Canvas.GetLeft(w.visual);
                 var wtop = Canvas.GetTop(w.visual);
 
-                bullet.ResetBullet();
+                bullet.ResetBullet(player);
 
                 if (top == wtop || top > wtop - bullet.visual.Width && top < wtop + 25)//top of horizontal wall
                 {
@@ -214,11 +214,16 @@ namespace assesmentWpf
             Canvas.SetLeft(this.visual, 500);
             Canvas.SetTop(this.visual, 200);
 
+            this.setGunMiddle();
+        }
+
+        public void setGunMiddle()
+        {
             this.gun.Fill = new SolidColorBrush(Colors.Purple);
             this.gun.Width = 25;
             this.gun.Height = 6;
             this.gun.Stretch = Stretch.Fill;
-            Canvas.SetLeft(this.gun, Canvas.GetLeft(this.visual) + this.visual.Width/2 );
+            Canvas.SetLeft(this.gun, Canvas.GetLeft(this.visual) + this.visual.Width / 2);
             Canvas.SetTop(this.gun, Canvas.GetTop(this.visual) + this.visual.Height / 2 - (this.gun.Height / 2));
 
 
@@ -227,6 +232,8 @@ namespace assesmentWpf
             this.middle.Height = 1;
             Canvas.SetLeft(this.middle, Canvas.GetLeft(this.visual) + 25);
             Canvas.SetTop(this.middle, Canvas.GetTop(this.visual) + 25);
+
+
         }
 
 
@@ -240,7 +247,7 @@ namespace assesmentWpf
 
 
 
-        public void Shoot(int witchbul, Point direction, double ang)
+        public void Shoot(int witchbul, Point direction, double ang, Bullets blue, Bullets orange, Player player)
         {
             var angle = (Math.Atan(Math.Abs(direction.Y) / Math.Abs(direction.X)));
             yinc = Math.Sin(angle) * this.bullspeed;
@@ -269,19 +276,19 @@ namespace assesmentWpf
 
             if (witchbul == 1) 
             {
-                Window1.game.blue.shooting = true;
-                Canvas.SetLeft(Window1.game.blue.visual, Canvas.GetLeft(this.middle) - 3);
-                Canvas.SetTop(Window1.game.blue.visual, Canvas.GetTop(this.middle) - 3); //reset the bullet
-                this.xpos = Canvas.GetLeft(Window1.game.blue.visual);
-                this.ypos = Canvas.GetTop(Window1.game.blue.visual);
+                blue.shooting = true;
+                Canvas.SetLeft(blue.visual, Canvas.GetLeft(this.middle) - 3);
+                Canvas.SetTop(blue.visual, Canvas.GetTop(this.middle) - 3); //reset the bullet
+                this.xpos = Canvas.GetLeft(blue.visual);
+                this.ypos = Canvas.GetTop(blue.visual);
             }
             else 
             {
-                Window1.game.orange.shooting = true;
-                Canvas.SetLeft(Window1.game.orange.visual, Canvas.GetLeft(this.middle) - 3);
-                Canvas.SetTop(Window1.game.orange.visual, Canvas.GetTop(this.middle) - 3);
-                this.xpos = Canvas.GetLeft(Window1.game.orange.visual);
-                this.ypos = Canvas.GetTop(Window1.game.orange.visual);
+                orange.shooting = true;
+                Canvas.SetLeft(orange.visual, Canvas.GetLeft(this.middle) - 3);
+                Canvas.SetTop(orange.visual, Canvas.GetTop(this.middle) - 3);
+                this.xpos = Canvas.GetLeft(orange.visual);
+                this.ypos = Canvas.GetTop(orange.visual);
 
             }
 
@@ -318,45 +325,43 @@ namespace assesmentWpf
                 if (this.x > 1920 || this.x < -1920)
                 {
                     this.shooting = false;
-                    Window1.game.blue.shooting = false;
-                    Window1.game.orange.shooting = false;
+                    blue.shooting = false;
+                    orange.shooting = false;
                     shootingTimer.Stop();
-                    Window1.game.blue.ResetBullet();
-                    Window1.game.orange.ResetBullet();
+                    blue.ResetBullet(player);
+                    orange.ResetBullet(player);
                 }
 
 
                 if (witchbul == 1)
                 {
-                    Canvas.SetLeft(Window1.game.blue.visual, (this.x + this.xpos));
+                    Canvas.SetLeft(blue.visual, (this.x + this.xpos));
                     
                     
-                    Canvas.SetTop(Window1.game.blue.visual, (this.y + this.ypos));
+                    Canvas.SetTop(blue.visual, (this.y + this.ypos));
                     
                     
-                    Window1.game.xx.Content = this.x;
                     if (this.shooting == false)
                     {
                         shootingTimer.Stop();
                         this.shooting = false;
-                        Window1.game.blue.shooting = false;
+                        blue.shooting = false;
                     }
                 }
                 else
                 {
-                    Canvas.SetLeft(Window1.game.orange.visual, (this.x + this.xpos));
+                    Canvas.SetLeft(orange.visual, (this.x + this.xpos));
 
 
-                    Canvas.SetTop(Window1.game.orange.visual, (this.y + this.ypos));
+                    Canvas.SetTop(orange.visual, (this.y + this.ypos));
                     
                     
                     
-                    Window1.game.xx.Content = this.x;
                     if (this.shooting == false)
                     {
                         shootingTimer.Stop();
                         this.shooting = false;
-                        Window1.game.orange.shooting = false;
+                        orange.shooting = false;
                     }
 
                 }
@@ -370,7 +375,6 @@ namespace assesmentWpf
         }
 
     }
-
     public class Ball
     {
         public Ellipse visual = new Ellipse();
@@ -380,8 +384,11 @@ namespace assesmentWpf
         public Ellipse middle = new Ellipse();
         public int canTele = 1;
 
+        public int x, y;
         public Ball(int width, int height, int x, int y)
-        { 
+        {
+            this.x = x;
+            this.y = y;
 
             this.visual.Width = width;
             this.visual.Height = height;
@@ -474,12 +481,98 @@ namespace assesmentWpf
 
         
         }
-    
-    
+
+        public void reset()
+        {
+            
+
+           
+
+            Canvas.SetLeft(this.middle, x + this.visual.Width / 2);
+            Canvas.SetTop(this.middle, y + this.visual.Height / 2);
+            Canvas.SetLeft(this.visual, x);
+            Canvas.SetTop(this.visual, y);
+            this.resetNose(x, y, "down");
+
+
+        }
     
     
     
     }
+    public class TelePad
+    {
+        public Ellipse visual = new Ellipse();
+        public Ellipse visualDesign_middleCircle = new Ellipse();
+        public Rect hitbox = new Rect();
+
+
+
+        public TelePad(int x, int y)
+        {
+            this.visual.Height = 30;
+            this.visual.Width = 30;
+            this.visual.Fill = new SolidColorBrush(Colors.LimeGreen);
+            this.visual.Stroke = new SolidColorBrush(Colors.Black);
+
+            this.visualDesign_middleCircle.Height = this.visual.Height / 2;
+            this.visualDesign_middleCircle.Width = this.visual.Width / 2;
+            this.visualDesign_middleCircle.Fill = new SolidColorBrush(Colors.Blue);
+            this.visualDesign_middleCircle.Stroke = new SolidColorBrush(Colors.Blue);
+
+            Canvas.SetLeft(this.visual, x);
+            Canvas.SetTop(this.visual, y);
+
+            Canvas.SetLeft(this.visualDesign_middleCircle, x + this.visual.Width / 4);
+            Canvas.SetTop(this.visualDesign_middleCircle, y + this.visual.Height / 4);
+
+
+        }
+
+
+
+
+        public void SetHitHox()
+        {
+            this.hitbox.X = Canvas.GetLeft(this.visual);
+            this.hitbox.Y = Canvas.GetTop(this.visual);
+            this.hitbox.Width = this.visual.Width;
+            this.hitbox.Height = this.visual.Height;
+        }
+
+
+    }
+    public class Goal
+    {
+        public Rectangle visual = new Rectangle();
+        public Rect hitbox = new Rect();
+
+        public Goal(int x, int y)
+        {
+            this.visual.Width = 15;
+            this.visual.Height = 75;
+            this.visual.Fill = new SolidColorBrush(Colors.Purple);
+            this.visual.Stroke = new SolidColorBrush(Colors.Purple);
+
+            Canvas.SetLeft(this.visual, x);
+            Canvas.SetTop(this.visual, y);
+            this.SetHitHox();
+        
+        }
+
+
+
+        public void SetHitHox()
+        {
+            this.hitbox.X = Canvas.GetLeft(this.visual);
+            this.hitbox.Y = Canvas.GetTop(this.visual);
+            this.hitbox.Width = this.visual.Width;
+            this.hitbox.Height = this.visual.Height;
+        }
+
+    }
+
+
 
     public partial class MainWindow : Window
     {
@@ -487,21 +580,41 @@ namespace assesmentWpf
         public DispatcherTimer ballMoveTimer = new DispatcherTimer();
         public Point pos;
         public double angle;
-        public Label xx = new Label();
         public Portals portal_blue = new Portals(new SolidColorBrush(Colors.Blue));
         public Portals portal_orange = new Portals(new SolidColorBrush(Colors.Orange));
         public Bullets blue = new Bullets(new SolidColorBrush(Colors.Blue));
         public Bullets orange = new Bullets(new SolidColorBrush(Colors.Orange));
-        public List<Walls> blocks = new List<Walls>();
+
+        public List<Walls> blocksLVL1 = new List<Walls>();
+        public List<Walls> blocksLVL2 = new List<Walls>();
+        public List<Walls> blocksLVL3 = new List<Walls>();
+
+        public List<TelePad> telePadsLVL1 = new List<TelePad>();
+        public List<TelePad> telePadsLVL2 = new List<TelePad>();
+        public List<TelePad> telePadsLVL3 = new List<TelePad>();
+
+        public Goal goalLVL1 = new Goal(1920-50-15,50);
+        public Goal goalLVL2 = new Goal(1,1);
+        public Goal goalLVL3 = new Goal(1,1);
+
+
+        public List<Walls> activeWalls = new List<Walls>();
+        public List<TelePad> activeTeles = new List<TelePad>();
+        public Goal activeGoal;
+
+
         public Player player = new Player();
         public DispatcherTimer dispatcherTimer = new DispatcherTimer();
-        public Ball ball = new Ball(40, 40, 100, 1);
+        public Ball ball = new Ball(50, 50, 100, 50);
         public Button backToMenu = new Button();
 
-        public MainWindow()
-        {
-            
+        public int currentLvl;
 
+
+        public MainWindow(int lvl)
+        {
+            currentLvl = lvl;
+            makeObjsLists();
 
             backToMenu.Content = "Exit";
             backToMenu.Width = 25;
@@ -511,10 +624,7 @@ namespace assesmentWpf
             Canvas.SetTop(backToMenu, 0);
 
 
-            xx.Height = 30;
-            xx.Width = 50;
-            xx.Background = new SolidColorBrush(Colors.LightBlue);
-            xx.FontSize = 10;
+            
 
 
             InitializeComponent();
@@ -524,7 +634,29 @@ namespace assesmentWpf
             ballMoveTimer.Tick += BallMoveTimer_Tick;
             ballMoveTimer.Interval = new TimeSpan(0,0,0,0,1);
 
-            makeWalls();
+
+            switch (lvl)
+            {
+                case 1:
+                    makeWalls(blocksLVL1, goalLVL1);
+                    makeTelePads(telePadsLVL1);
+                    break;
+                case 2:
+                    makeWalls(blocksLVL2, goalLVL2);
+                    makeTelePads(telePadsLVL2);
+                    break;
+                case 3:
+                    makeWalls(blocksLVL3, goalLVL3);
+                    makeTelePads(telePadsLVL3);
+                    break;
+                default:
+                    break;
+            }
+            
+
+
+
+
             background.Children.Add(player.visual);
             background.Children.Add(player.gun);
             background.Children.Add(player.middle);
@@ -534,53 +666,110 @@ namespace assesmentWpf
             background.Children.Add(portal_orange.visualVertical);
             background.Children.Add(portal_blue.visualSideWays);
             background.Children.Add(portal_orange.visualSideWays); 
-            background.Children.Add(xx);
             background.Children.Add(ball.visual);
-            background.Children.Add(ball.nose);
-            background.Children.Add(ball.middle);
             background.Children.Add(backToMenu);
 
-            foreach (Walls item in blocks)
-            {
-                item.SetHitHox();
-            }
+            
 
             ball.direction = "down";
             GC.Collect();
         }
 
+        private void makeObjsLists()
+        {
+            telePadsLVL1.Add(new TelePad(50+573/2-15, 35+980/2-15));
+            telePadsLVL1.Add(new TelePad(50+573+50+573/2-15, 35 + 980 / 2 - 15));
+            telePadsLVL1.Add(new TelePad(50+573+50+573+50+573/2-15, 35 + 980 / 2 - 15));
+
+            blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080 - 70, 1920 - 50, 50, "h"));//floor
+            blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 1920 - 50, 0, 50, 1080, "v")); //right wall
+            blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 0, 1820, 50, "h"));//celling                   //boundarys
+            blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 0, 0, 50, 1920, "v"));//left wall
+
+            blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 50+573, 50, 50, 980, "v"));//middle
+            blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 623+50+573, 50, 50, 980, "v"));//middle
+
+            /////////
+            blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080 - 70, 1920 - 50, 50, "h"));//floor
+            blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 1920 - 50, 0, 50, 1080, "v")); //right wall
+            blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 0, 1820, 50, "h"));//celling                   //boundarys
+            blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 0, 0, 50, 1920, "v"));//left wall
+
+
+
+
+
+
+            blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080 - 70, 1920 - 50, 50, "h"));//floor
+            blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 1920 - 50, 0, 50, 1080, "v")); //right wall
+            blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 0, 1820, 50, "h"));//celling                   //boundarys
+            blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 0, 0, 50, 1920, "v"));//left wall
+
+
+
+
+
+        }
+        public void makeWalls(List<Walls> wallstomake, Goal goal)
+        {
+
+            background.Children.Add(goal.visual);
+            activeGoal = goal;
+
+            orange.ResetBullet(player);
+            blue.ResetBullet(player);
+
+
+
+            foreach (Walls item in wallstomake)
+            {
+                activeWalls.Add(item);
+                background.Children.Add(item.visual);
+                item.SetHitHox();
+
+            }
+
+
+        }
+        private void makeTelePads(List<TelePad> tpads)
+        {
+            
+
+
+
+            foreach (TelePad item in tpads)
+            {
+                activeTeles.Add(item);
+                background.Children.Add(item.visual);
+                background.Children.Add(item.visualDesign_middleCircle);
+                item.visualDesign_middleCircle.MouseDown += VisualDesign_middleCircle_MouseDown;
+            }
+        }
+        private void VisualDesign_middleCircle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.MiddleButton == MouseButtonState.Pressed)
+            {
+
+
+                var x = Canvas.GetLeft(sender as Ellipse);
+                var y = Canvas.GetTop(sender as Ellipse);
+
+                Canvas.SetLeft(player.visual, x - player.visual.Width / 4);
+                Canvas.SetTop(player.visual, y - player.visual.Height / 4);
+                player.setGunMiddle();
+                orange.ResetBullet(player);
+                blue.ResetBullet(player);
+            }
+        }
         public void gameExit(object sender, RoutedEventArgs e)
         {
             MainWindow.menu.Show();
             Window1.game.Hide();
         }
-
-        public void makeWalls()
-        {
-            
-            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080-70, 1920-150, 50, "h"));//floor
-            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 1920-50, 0, 50, 1080, "v")); //right wall
-            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 100, 0, 1870, 50, "h"));//celling
-            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 0, 0, 50, 1920, "v"));//left wall
-            blocks.Add(new Walls(new SolidColorBrush(Colors.Black), 1920/2, 0, 50, 1920, "v"));//middle
-
-
-
-
-            foreach (Walls item in blocks)
-            {
-                background.Children.Add(item.visual);
-            }
-
-
-
-        }
-
         private void BallMoveTimer_Tick(object sender, EventArgs e)
         {
             ball.move();
         }
-
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             GC.Collect();
@@ -594,15 +783,19 @@ namespace assesmentWpf
 
 
 
-
+          
             
             if (ball.canTele == 1) { teleportCheck(); }
-            
 
-
-            foreach (Walls x in blocks)
+            if (ball.hitbox.IntersectsWith(activeGoal.hitbox))
             {
+                Canvas.SetLeft(ball.visual, 1);
+                nextLevel(currentLvl);
+            }
 
+            foreach (Walls x in activeWalls)
+            {
+                if (ball.hitbox.IntersectsWith(x.hitbox)) { ball.reset(); }
                 if (ColisionDetc(blue.hitbox, x.hitbox))
                 {
                     blue.shooting = false;
@@ -610,12 +803,12 @@ namespace assesmentWpf
                     if ((string)x.visual.Tag == "v")
                     {
                         
-                        portal_blue.spawn(blue, 1, x);
+                        portal_blue.spawn(blue, 1, x, player);
                     }
                     else
                     {
 
-                        portal_blue.spawn(blue, 0, x);
+                        portal_blue.spawn(blue, 0, x, player);
                     }
                 }
                 if (ColisionDetc(orange.hitbox, x.hitbox))
@@ -624,11 +817,11 @@ namespace assesmentWpf
                     player.shooting = false;
                     if ((string)x.visual.Tag == "v")
                     { 
-                        portal_orange.spawn(orange, 1, x);
+                        portal_orange.spawn(orange, 1, x, player);
                     }
                     else
                     {
-                        portal_orange.spawn(orange, 0, x);
+                        portal_orange.spawn(orange, 0, x, player);
 
                     }
                 }
@@ -642,20 +835,18 @@ namespace assesmentWpf
                 if (Mouse.LeftButton == MouseButtonState.Pressed) 
                 {
                     player.shooting = true;
-                    player.Shoot(1, pos, angle);
+                    player.Shoot(1, pos, angle, blue, orange, player);
                     blue.shooting = true;
                 }
                 else if (Mouse.RightButton == MouseButtonState.Pressed) 
                 {
                     player.shooting = true;
-                    player.Shoot(2, pos, angle);
+                    player.Shoot(2, pos, angle, blue, orange, player);
                     orange.shooting = true;
                 }
             }
 
 
-            lbl_output.Content = angle.ToString();
-            lbl_output_pos.Content = pos.ToString();
             RotateTransform rotateTransform = new RotateTransform(angle,0,player.gun.Height/2);
             player.gun.RenderTransform = rotateTransform;
 
@@ -664,7 +855,6 @@ namespace assesmentWpf
 
             GC.Collect();
         }
-
         public void teleportCheck()
         {
             DispatcherTimer wait = new DispatcherTimer();
@@ -712,8 +902,6 @@ namespace assesmentWpf
                 wait.Stop();
             }
         }
-
-
         static double GetAngle(Point mouse)
         {
             if (mouse.X > 0 && mouse.Y > 0) //bottom right
@@ -760,8 +948,18 @@ namespace assesmentWpf
             
             
         }
+        public void nextLevel(int nextLevel)
+        {
 
 
+
+            MainWindow lvlnxt = new MainWindow(nextLevel + 1);
+            this.Close();
+            lvlnxt.dispatcherTimer.Start();
+            lvlnxt.ballMoveTimer.Start();
+            lvlnxt.Show();
+        
+        }
 
 
 
