@@ -204,15 +204,15 @@ namespace assesmentWpf
         public double yinc;
         public double xinc;
 
-        public Player()
+        public Player(int x, int y)
         {
             this.visual.Stroke = new SolidColorBrush(Colors.Black);
             this.visual.Fill = new SolidColorBrush(Colors.Red);
             this.visual.Width = 50;
             this.visual.Height = 50;
             this.visual.Stretch = Stretch.Fill;
-            Canvas.SetLeft(this.visual, 500);
-            Canvas.SetTop(this.visual, 200);
+            Canvas.SetLeft(this.visual, x);
+            Canvas.SetTop(this.visual, y);
 
             this.setGunMiddle();
         }
@@ -383,6 +383,7 @@ namespace assesmentWpf
         public Ellipse nose = new Ellipse();
         public Ellipse middle = new Ellipse();
         public int canTele = 1;
+        public int canColide = 1;
 
         public int x, y;
         public Ball(int width, int height, int x, int y)
@@ -493,12 +494,14 @@ namespace assesmentWpf
             Canvas.SetLeft(this.visual, x);
             Canvas.SetTop(this.visual, y);
             this.resetNose(x, y, "down");
+            this.direction = "down";
+
 
 
         }
-    
-    
-    
+
+
+
     }
     public class TelePad
     {
@@ -603,9 +606,9 @@ namespace assesmentWpf
         public Goal activeGoal;
 
 
-        public Player player = new Player();
+        public Player player;
         public DispatcherTimer dispatcherTimer = new DispatcherTimer();
-        public Ball ball = new Ball(50, 50, 100, 50);
+        public Ball ball = new Ball(50, 50, 100, 51);
         public Button backToMenu = new Button();
 
         public int currentLvl;
@@ -615,6 +618,8 @@ namespace assesmentWpf
         {
             currentLvl = lvl;
             makeObjsLists();
+
+            player = new Player((50 + 573 / 2 - 15) - 50/4, (35 + 980 / 2 - 15) - 50/4);
 
             backToMenu.Content = "Exit";
             backToMenu.Width = 25;
@@ -677,7 +682,8 @@ namespace assesmentWpf
 
         private void makeObjsLists()
         {
-            telePadsLVL1.Add(new TelePad(50+573/2-15, 35+980/2-15));
+            telePadsLVL1.Add(new TelePad(50+573/2-15, 35+980/2-15)); //left
+
             telePadsLVL1.Add(new TelePad(50+573+50+573/2-15, 35 + 980 / 2 - 15));
             telePadsLVL1.Add(new TelePad(50+573+50+573+50+573/2-15, 35 + 980 / 2 - 15));
 
@@ -690,6 +696,9 @@ namespace assesmentWpf
             blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 623+50+573, 50, 50, 980, "v"));//middle
 
             /////////
+            telePadsLVL2.Add(new TelePad(50+573/2-15, 35+980/2-15)); //left
+
+
             blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080 - 70, 1920 - 50, 50, "h"));//floor
             blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 1920 - 50, 0, 50, 1080, "v")); //right wall
             blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 0, 1820, 50, "h"));//celling                   //boundarys
@@ -699,7 +708,7 @@ namespace assesmentWpf
 
 
 
-
+            ////////
             blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080 - 70, 1920 - 50, 50, "h"));//floor
             blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 1920 - 50, 0, 50, 1080, "v")); //right wall
             blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 0, 1820, 50, "h"));//celling                   //boundarys
@@ -795,7 +804,6 @@ namespace assesmentWpf
 
             foreach (Walls x in activeWalls)
             {
-                if (ball.hitbox.IntersectsWith(x.hitbox)) { ball.reset(); }
                 if (ColisionDetc(blue.hitbox, x.hitbox))
                 {
                     blue.shooting = false;
@@ -850,8 +858,14 @@ namespace assesmentWpf
             RotateTransform rotateTransform = new RotateTransform(angle,0,player.gun.Height/2);
             player.gun.RenderTransform = rotateTransform;
 
-            
+            if (ball.canColide == 1)
+            { 
+                foreach (var x in activeWalls)
+                {
 
+                    if (ball.hitbox.IntersectsWith(x.hitbox) && (ball.hitbox.IntersectsWith(orange.hitbox) == false || ball.hitbox.IntersectsWith(blue.hitbox) == false)) { ball.reset(); }
+                }
+            }
 
             GC.Collect();
         }
@@ -875,6 +889,7 @@ namespace assesmentWpf
                 }
                 ball.direction = portal_orange.outDir;
                 ball.canTele = 0;
+                ball.canColide = 0;
                 wait.Start();
             }
 
@@ -893,12 +908,14 @@ namespace assesmentWpf
                 }
                 ball.direction = portal_blue.outDir;
                 ball.canTele = 0;
+                ball.canColide = 0;
                 wait.Start();
             }
 
             void Wait_Tick(object sender, EventArgs e)
             {
                 ball.canTele = 1;
+                ball.canColide = 1;
                 wait.Stop();
             }
         }
