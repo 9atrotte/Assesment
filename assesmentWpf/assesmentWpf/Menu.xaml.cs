@@ -42,9 +42,15 @@ namespace assesmentWpf
         
         private void Start_Click(object sender, RoutedEventArgs e)
         {
+            //game.Show();
+            //game.dispatcherTimer.Start();
+            //game.ballMoveTimer.Start();
+
             LoadingScreen.Show();
 
-
+            LoadingScreen.tmrFacts.Start();
+            LoadingScreen.tmrText.Start();
+            LoadingScreen.tmrLoading.Start();
 
             this.Hide();
         }

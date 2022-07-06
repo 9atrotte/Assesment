@@ -465,15 +465,15 @@ namespace assesmentWpf
 
 
 
-            var xdif = nleft - mleft;
-            var ydif = ntop - mtop;
+            var xdif = (nleft - mleft);
+            var ydif = (ntop - mtop);
 
             
             if (xdif != 0) {xdif = xdif / Math.Abs(xdif);}
             if (ydif != 0) { ydif = ydif / Math.Abs(ydif); } 
 
-            Canvas.SetLeft(this.visual, vleft + xdif);
-            Canvas.SetTop(this.visual, vtop + ydif);
+            Canvas.SetLeft(this.visual, vleft + (xdif * 2));
+            Canvas.SetTop(this.visual, vtop + (ydif * 2));
 
             mtop = Canvas.GetTop(this.visual);
             mleft = Canvas.GetLeft(this.visual);

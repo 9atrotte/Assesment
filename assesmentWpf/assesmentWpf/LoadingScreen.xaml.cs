@@ -23,7 +23,8 @@ namespace assesmentWpf
     /// </summary>
     public partial class LoadingScreen : Window
     {
-        readonly DispatcherTimer tmrLoading;
+        public DispatcherTimer tmrLoading = new DispatcherTimer();
+
         readonly Random rand = new Random();
         int factNumber;
         readonly string[] facts = new string[]
@@ -44,11 +45,18 @@ namespace assesmentWpf
             "Venus is the only planet in our solar system to spin clockwise!",
             "It takes 8 minutes and 19 seconds for light to travel from the sun to the earth.",
             "Europa, one of Jupiter's moons, has saltwater geysers that are 20x taller than Mt. Everest.",
-            "Saturn's rings are made from trillions of chunks of orbiting ice."
+            "Saturn's rings are made from trillions of chunks of orbiting ice.",
+            "Your funny bone is actually a nerve.",
+            "The most requested funeral song in England is by Monty Python.",
+            "Research shows that all blue-eyed people may be related.",
+            "The average person will spend six months of their life waiting for red lights to turn green.",
+            "A bolt of lightning contains enough energy to toast 100,000 slices of bread."
         };
 
         public Key UpControl, DownControl, LeftControl, RightControl;
         public string ShootControl, RecallControl, Difficulty;
+        public DispatcherTimer tmrFacts = new DispatcherTimer();
+        public DispatcherTimer tmrText = new DispatcherTimer();
 
         public LoadingScreen()
         {
@@ -62,20 +70,15 @@ namespace assesmentWpf
             factNumber = rand.Next(0, facts.Length);
             txtFacts.Text = Convert.ToString(facts[factNumber]);
 
-            tmrLoading = new DispatcherTimer();
             tmrLoading.Tick += Loading;
             tmrLoading.Interval = new TimeSpan(0, 0, 0, 0, 25);
-            tmrLoading.Start();
 
-            DispatcherTimer tmrText = new DispatcherTimer();
             tmrText.Tick += Text;
             tmrText.Interval = new TimeSpan(0, 0, 0, 0, 500);
-            tmrText.Start();
 
-            DispatcherTimer tmrFacts = new DispatcherTimer();
             tmrFacts.Tick += FactGenerate;
             tmrFacts.Interval = new TimeSpan(0, 0, 0, 5);
-            tmrFacts.Start();
+            
 
             rectLoading.Width = 0;
             txtLoading.Text = "Loading";
@@ -107,7 +110,6 @@ namespace assesmentWpf
             rectLoading.Width += 3;
             if (rectLoading.Width > 1095)
             {
-                Window1.game.Show();
                 Window1.game.Show();
                 Window1.game.dispatcherTimer.Start();
                 Window1.game.ballMoveTimer.Start();
