@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:assesmentWpf"
         mc:Ignorable="d"
-        Title="Credits" Height="450" Width="800" Background="Black" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Maximized" ShowInTaskbar="False" WindowStyle="None">
+        Title="Credits" Height="1080" Width="1920" Background="Black" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Maximized" ShowInTaskbar="False" WindowStyle="None">
     <Grid>
         <Label Content="Created by: Alexander Trotter&#xD;&#xA;Designed by: Alexander Trotter&#xD;&#xA;" HorizontalAlignment="Center" Height="301" VerticalAlignment="Center" Width="548" FontWeight="Bold" Foreground="White" FontSize="20" FontStyle="Normal" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="btn_back" Margin="10,387,0,0" Click="btn_back_Click" Content="Back" Background="#FF444141" Foreground="White" Height="37" Width="73"/>
+        <Button x:Name="btn_exit" Content="Back" HorizontalAlignment="Center" Height="67" Margin="0,914,0,0" VerticalAlignment="Top" Width="264" Click="btn_back_Click" Background="{x:Null}" BorderBrush="Red" FontSize="36" FontFamily="Arial" FontWeight="Normal" Foreground="White"/>
     </Grid>
 </Window>
