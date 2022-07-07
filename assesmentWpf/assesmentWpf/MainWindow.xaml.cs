@@ -473,8 +473,8 @@ namespace assesmentWpf
             if (xdif != 0) {xdif = xdif / Math.Abs(xdif);}
             if (ydif != 0) { ydif = ydif / Math.Abs(ydif); } 
 
-            Canvas.SetLeft(this.visual, vleft + (xdif * 2));
-            Canvas.SetTop(this.visual, vtop + (ydif * 2));
+            Canvas.SetLeft(this.visual, vleft + (xdif * 4));
+            Canvas.SetTop(this.visual, vtop + (ydif * 4));
 
             mtop = Canvas.GetTop(this.visual);
             mleft = Canvas.GetLeft(this.visual);
@@ -946,7 +946,7 @@ namespace assesmentWpf
         {
             DispatcherTimer wait = new DispatcherTimer();
             wait.Tick += Wait_Tick;
-            wait.Interval = new TimeSpan(0, 0, 3);
+            wait.Interval = new TimeSpan(0, 0, 2);
 
             if (ball.hitbox.IntersectsWith(portal_blue.hitBoxVertical) || ball.hitbox.IntersectsWith(portal_blue.hitBoxSideWays))//blue portal 
             {

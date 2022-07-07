@@ -24,8 +24,16 @@ namespace assesmentWpf
         public End()
         {
             InitializeComponent();
+            if (MainWindow.score == 1)
+            {
 
-            resets.Content = $"You Had {MainWindow.score} resets";
+                resets.Content = $"You Had {MainWindow.score} reset";
+            }
+            else
+            {
+                resets.Content = $"You Had {MainWindow.score} resets";
+
+            }
 
         }
 
