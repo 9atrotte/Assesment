@@ -40,6 +40,7 @@ namespace assesmentWpf
         
         private void Start_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow.score = 0;
             for (int i = 0; i < games.Length; i++)
             {
                 

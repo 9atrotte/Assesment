@@ -1045,6 +1045,8 @@ namespace assesmentWpf
             {
                 var end = new End();
                 end.Show();
+                this.dispatcherTimer.Stop();
+                this.ballMoveTimer.Stop();
                 this.Close();
             }
             else
