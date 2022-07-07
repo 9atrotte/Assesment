@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:assesmentWpf"
         mc:Ignorable="d"
-        Title="Menu" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="CanMinimize" ShowInTaskbar="False">
+        Title="Menu" Height="1080" Width="1920" WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="CanMinimize" ShowInTaskbar="False" WindowStyle="None">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -22,10 +22,11 @@
                 <GradientStop Color="#FEFFBA01" Offset="0"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="btn_start" Content="Start" HorizontalAlignment="Center" Height="35" Margin="0,195,0,0" VerticalAlignment="Top" Width="88" Click="Start_Click"/>
-        <Button x:Name="btn_credits" Content="Credits" HorizontalAlignment="Center" Height="35" Margin="0,275,0,0" VerticalAlignment="Top" Width="88" Click="btn_credits_Click" />
-        <Button x:Name="btn_howtoplay" Content="How to play" HorizontalAlignment="Center" Height="35" Margin="0,235,0,0" VerticalAlignment="Top" Width="88" Click="btn_howtoplay_Click" />
-        <Button x:Name="btn_exit" Content="Exit" HorizontalAlignment="Center" Height="35" Margin="0,315,0,0" VerticalAlignment="Top" Width="88" Click="btn_exit_Click" />
+        <Label Content="Portals&#xD;&#xA;" HorizontalAlignment="Center" Height="1064" VerticalAlignment="Center" Width="1920" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="200" FontFamily="entanglement"/>
+        <Button x:Name="btn_start" Content="Start" HorizontalAlignment="Left" Height="67" Margin="677,828,0,0" VerticalAlignment="Top" Width="246" Click="Start_Click" Background="{x:Null}" BorderBrush="Red" MouseEnter="btn_start_MouseEnter" MouseLeave="btn_start_MouseLeave" FontSize="36" FontFamily="Arial"/>
+        <Button x:Name="btn_credits" Content="Credits" HorizontalAlignment="Left" Height="67" Margin="983,828,0,0" VerticalAlignment="Top" Width="246" Click="btn_credits_Click" BorderBrush="Red" Background="{x:Null}" MouseEnter="btn_start_MouseEnter" MouseLeave="btn_start_MouseLeave" FontSize="36" FontFamily="Arial"/>
+        <Button x:Name="btn_howtoplay" Content="How to play" HorizontalAlignment="Left" Height="67" Margin="677,904,0,0" VerticalAlignment="Top" Width="246" Click="btn_howtoplay_Click" Background="{x:Null}" BorderBrush="Red" MouseEnter="btn_start_MouseEnter" MouseLeave="btn_start_MouseLeave" FontSize="36" FontFamily="Arial"/>
+        <Button x:Name="btn_exit" Content="Exit" HorizontalAlignment="Left" Height="67" Margin="983,904,0,0" VerticalAlignment="Top" Width="246" Click="btn_exit_Click" Background="{x:Null}" BorderBrush="Red" MouseEnter="btn_start_MouseEnter" MouseLeave="btn_start_MouseLeave" FontSize="36" FontFamily="Arial" FontWeight="Normal" Foreground="Black"/>
 
     </Grid>
 </Window>

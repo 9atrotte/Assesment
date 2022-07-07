@@ -24,12 +24,10 @@ namespace assesmentWpf
 
 
 
+        public static MainWindow[] games = new MainWindow[3];
 
 
-
-        public static MainWindow game = new MainWindow(1);
-        //public static MainWindow game2 = new MainWindow(2);
-        //public static MainWindow game3 = new MainWindow(3);
+        
         public static Credits credits = new Credits();
         public static HowToPlay howToPlay = new HowToPlay();
         public static LoadingScreen LoadingScreen = new LoadingScreen();
@@ -42,15 +40,25 @@ namespace assesmentWpf
         
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            //game.Show();
-            //game.dispatcherTimer.Start();
-            //game.ballMoveTimer.Start();
+            for (int i = 0; i < games.Length; i++)
+            {
+                
+                games[i] = new MainWindow(i + 1, new SolidColorBrush(Colors.Gray));
+                
+            }
 
-            LoadingScreen.Show();
 
-            LoadingScreen.tmrFacts.Start();
-            LoadingScreen.tmrText.Start();
-            LoadingScreen.tmrLoading.Start();
+            games[0].Show();
+            games[0].dispatcherTimer.Start();
+            games[0].ballMoveTimer.Start();
+            
+            //End end = new End();
+            //end.Show();
+
+            //LoadingScreen.Show();
+            //LoadingScreen.tmrFacts.Start();
+            //LoadingScreen.tmrText.Start();
+            //LoadingScreen.tmrLoading.Start();
 
             this.Hide();
         }
@@ -72,6 +80,18 @@ namespace assesmentWpf
         private void btn_exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void btn_start_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var s = sender as Button;
+            s.Background = new SolidColorBrush(Colors.Lime);
+        }
+
+        private void btn_start_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var s = sender as Button;
+            s.Background = null;
         }
     }
 }

@@ -110,9 +110,9 @@ namespace assesmentWpf
             rectLoading.Width += 3;
             if (rectLoading.Width > 1095)
             {
-                Window1.game.Show();
-                Window1.game.dispatcherTimer.Start();
-                Window1.game.ballMoveTimer.Start();
+                Window1.games[0].Show();
+                Window1.games[0].dispatcherTimer.Start();
+                Window1.games[0].ballMoveTimer.Start();
                 this.Close();
                 tmrLoading.Stop();
             }

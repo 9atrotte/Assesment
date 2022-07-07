@@ -58,3 +58,5 @@ K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\Credits.baml
 K:\12AI\Assesment\assesmentWpf\assesmentWpf\obj\Debug\HowToPlay.baml
 C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\LoadingScreen.g.cs
 C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\LoadingScreen.baml
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\End.g.cs
+C:\Users\YelloElefant\OneDrive\Coding\visual studio\Assesment\assesmentWpf\assesmentWpf\obj\Debug\End.baml

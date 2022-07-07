@@ -91,16 +91,16 @@ namespace assesmentWpf
         {
             this.visualVertical.Fill = color;
             this.visualVertical.Stroke = color;
-            this.visualVertical.Width = 2;
-            this.visualVertical.Height = 50;
+            this.visualVertical.Width = 5;
+            this.visualVertical.Height = 75;
             Canvas.SetLeft(this.visualVertical, 0);
             Canvas.SetTop(this.visualVertical, 0);
             this.visualVertical.Visibility = Visibility.Hidden;
 
             this.visualSideWays.Fill = color;
             this.visualSideWays.Stroke = color;
-            this.visualSideWays.Width = 50;
-            this.visualSideWays.Height = 2;
+            this.visualSideWays.Width = 75;
+            this.visualSideWays.Height = 5;
             Canvas.SetLeft(this.visualSideWays, 0);
             Canvas.SetTop(this.visualSideWays, 0);
             this.visualSideWays.Visibility = Visibility.Hidden;
@@ -122,6 +122,7 @@ namespace assesmentWpf
         }
         public void spawn(Bullets bullet, int a, Walls w, Player player) //a = 1 = v
         {
+            this.SetHitHox();
             if (a == 1)
             {
                 this.visualSideWays.Visibility = Visibility.Collapsed;
@@ -137,7 +138,7 @@ namespace assesmentWpf
 
                 if (left == wleft || left > wleft - bullet.visual.Width && left < wleft + 25) //left of vertical wall
                 {
-                    Canvas.SetLeft(this.visualVertical, Canvas.GetLeft(w.visual) - 2);
+                    Canvas.SetLeft(this.visualVertical, Canvas.GetLeft(w.visual) - this.visualVertical.Width);
                     Canvas.SetTop(this.visualVertical, top - this.visualVertical.Height / 2 + 5);
                     this.outDir = "left";
                 }
@@ -165,13 +166,13 @@ namespace assesmentWpf
 
                 if (top == wtop || top > wtop - bullet.visual.Width && top < wtop + 25)//top of horizontal wall
                 {
-                    Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - 2);
-                    Canvas.SetTop(this.visualSideWays, Canvas.GetTop(w.visual) - 2);
+                    Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - this.visualSideWays.Width/2);
+                    Canvas.SetTop(this.visualSideWays, Canvas.GetTop(w.visual) - this.visualSideWays.Height);
                     this.outDir = "up";
                 }
                 else
                 {
-                    Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - 2);//bottom of horizontral wall
+                    Canvas.SetLeft(this.visualSideWays, left + bullet.visual.Width - this.visualSideWays.Width / 2);//bottom of horizontral wall
                     Canvas.SetTop(this.visualSideWays, Canvas.GetTop(w.visual) + w.visual.Height);
                     this.outDir = "down";
                 }
@@ -204,12 +205,12 @@ namespace assesmentWpf
         public double yinc;
         public double xinc;
 
-        public Player(int x, int y)
+        public Player(double x, double y)
         {
             this.visual.Stroke = new SolidColorBrush(Colors.Black);
             this.visual.Fill = new SolidColorBrush(Colors.Red);
-            this.visual.Width = 50;
-            this.visual.Height = 50;
+            this.visual.Width = 80;
+            this.visual.Height = 80;
             this.visual.Stretch = Stretch.Fill;
             Canvas.SetLeft(this.visual, x);
             Canvas.SetTop(this.visual, y);
@@ -220,7 +221,7 @@ namespace assesmentWpf
         public void setGunMiddle()
         {
             this.gun.Fill = new SolidColorBrush(Colors.Purple);
-            this.gun.Width = 25;
+            this.gun.Width = this.visual.Width/2;
             this.gun.Height = 6;
             this.gun.Stretch = Stretch.Fill;
             Canvas.SetLeft(this.gun, Canvas.GetLeft(this.visual) + this.visual.Width / 2);
@@ -230,8 +231,8 @@ namespace assesmentWpf
 
             this.middle.Width = 1;
             this.middle.Height = 1;
-            Canvas.SetLeft(this.middle, Canvas.GetLeft(this.visual) + 25);
-            Canvas.SetTop(this.middle, Canvas.GetTop(this.visual) + 25);
+            Canvas.SetLeft(this.middle, Canvas.GetLeft(this.visual) + this.visual.Width/2);
+            Canvas.SetTop(this.middle, Canvas.GetTop(this.visual) + this.visual.Height/2);
 
 
         }
@@ -393,7 +394,7 @@ namespace assesmentWpf
 
             this.visual.Width = width;
             this.visual.Height = height;
-            this.visual.Fill = new SolidColorBrush(Colors.Gray);
+            //this.visual.Fill = new SolidColorBrush(Colors.Gray);
             this.visual.Stroke = new SolidColorBrush(Colors.Gray);
 
             this.nose.Width = 2;
@@ -483,18 +484,18 @@ namespace assesmentWpf
         
         }
 
-        public void reset()
+        public void reset(Point rxy, string direc)
         {
             
 
            
 
-            Canvas.SetLeft(this.middle, x + this.visual.Width / 2);
-            Canvas.SetTop(this.middle, y + this.visual.Height / 2);
-            Canvas.SetLeft(this.visual, x);
-            Canvas.SetTop(this.visual, y);
-            this.resetNose(x, y, "down");
-            this.direction = "down";
+            Canvas.SetLeft(this.middle, rxy.X + this.visual.Width / 2);
+            Canvas.SetTop(this.middle, rxy.Y + this.visual.Height / 2);
+            Canvas.SetLeft(this.visual, rxy.X);
+            Canvas.SetTop(this.visual, rxy.Y);
+            this.resetNose(rxy.X, rxy.Y, direc);
+            this.direction = direc;
 
 
 
@@ -513,8 +514,8 @@ namespace assesmentWpf
 
         public TelePad(int x, int y)
         {
-            this.visual.Height = 30;
-            this.visual.Width = 30;
+            this.visual.Height = 60;
+            this.visual.Width = 60;
             this.visual.Fill = new SolidColorBrush(Colors.LimeGreen);
             this.visual.Stroke = new SolidColorBrush(Colors.Black);
 
@@ -596,15 +597,23 @@ namespace assesmentWpf
         public List<TelePad> telePadsLVL2 = new List<TelePad>();
         public List<TelePad> telePadsLVL3 = new List<TelePad>();
 
-        public Goal goalLVL1 = new Goal(1920-50-15,50);
-        public Goal goalLVL2 = new Goal(1,1);
-        public Goal goalLVL3 = new Goal(1,1);
+        public Goal goalLVL1 = new Goal(1920 - 50 - 15, 900);        //1920-50-15,900
+        public Goal goalLVL2 = new Goal(1820 + 50 - 15, 15 + 620 + 310 / 2 + 75 / 2); //1820+50-15, 15+620+310/2+75/2
+        public Goal goalLVL3 = new Goal(1820 + 50 - 15, 15 + 620 + 310 / 2 + 75 / 2); //1820 + 50 - 15, 15 + 620 + 310 / 2 + 75 / 2
+
 
 
         public List<Walls> activeWalls = new List<Walls>();
         public List<TelePad> activeTeles = new List<TelePad>();
         public Goal activeGoal;
 
+        public Point ballresetpoint; 
+        public string ballresetdir;
+
+        public static int score = 0;
+
+        //public Label ballloc = new Label();
+        //public Label ballloch = new Label();
 
         public Player player;
         public DispatcherTimer dispatcherTimer = new DispatcherTimer();
@@ -614,51 +623,71 @@ namespace assesmentWpf
         public int currentLvl;
 
 
-        public MainWindow(int lvl)
+        public MainWindow(int lvl, SolidColorBrush b)
         {
             currentLvl = lvl;
             makeObjsLists();
-
-            player = new Player((50 + 573 / 2 - 15) - 50/4, (35 + 980 / 2 - 15) - 50/4);
-
-            backToMenu.Content = "Exit";
-            backToMenu.Width = 25;
-            backToMenu.Height = 25;
-            backToMenu.Click += gameExit;
-            Canvas.SetLeft(backToMenu, 1920 - backToMenu.Width);
-            Canvas.SetTop(backToMenu, 0);
-
-
             
-
-
             InitializeComponent();
-            dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(1);
 
-            ballMoveTimer.Tick += BallMoveTimer_Tick;
-            ballMoveTimer.Interval = new TimeSpan(0,0,0,0,1);
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            ball.visual.Fill = b;
 
+
+
+            //Canvas.SetTop(ballloc, 1080 / 2);
+            //Canvas.SetLeft(ballloc, 1920 / 2);
+            //ballloc.Width = 100;
+            //ballloc.Height = 100;
+            //ballloc.Background = new SolidColorBrush(Colors.Yellow);
+
+            //Canvas.SetTop(ballloch, 1080 / 2 + 100);
+            //Canvas.SetLeft(ballloch, 1920 / 2);
+            //ballloch.Width = 100;
+            //ballloch.Height = 100;
+            //ballloch.Background = new SolidColorBrush(Colors.Yellow);
+
+
+
+            player = new Player(1,1);
 
             switch (lvl)
             {
                 case 1:
                     makeWalls(blocksLVL1, goalLVL1);
                     makeTelePads(telePadsLVL1);
+                    ballresetpoint = new Point(100,51);
+                    ballresetdir = "down";
+                    //goalLVL1.SetHitHox();
                     break;
                 case 2:
                     makeWalls(blocksLVL2, goalLVL2);
                     makeTelePads(telePadsLVL2);
+                    ballresetpoint = new Point(51, 100);
+                    ballresetdir = "right";
+                    //goalLVL2.SetHitHox();
                     break;
                 case 3:
                     makeWalls(blocksLVL3, goalLVL3);
                     makeTelePads(telePadsLVL3);
+                    ballresetpoint = new Point(51, 100);
+                    ballresetdir = "right";
+                    //goalLVL3.SetHitHox();
                     break;
                 default:
                     break;
             }
-            
+            Canvas.SetLeft(player.visual, Canvas.GetLeft(activeTeles[0].visualDesign_middleCircle) - player.visual.Width / 4);
+            Canvas.SetTop(player.visual, Canvas.GetTop(activeTeles[0].visualDesign_middleCircle) - player.visual.Height/4);
+            player.setGunMiddle();
+            orange.ResetBullet(player);
+            blue.ResetBullet(player);
 
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(1);
+
+            ballMoveTimer.Tick += BallMoveTimer_Tick;
+            ballMoveTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
 
 
 
@@ -673,21 +702,41 @@ namespace assesmentWpf
             background.Children.Add(portal_orange.visualSideWays); 
             background.Children.Add(ball.visual);
             background.Children.Add(backToMenu);
+            //background.Children.Add(ballloc);
+            //background.Children.Add(ballloch);
 
-            
 
-            ball.direction = "down";
+            ball.reset(ballresetpoint, ballresetdir);
+
+            backToMenu.Content = "Menu";
+            backToMenu.Width = 60;
+            backToMenu.Height = 40;
+            backToMenu.Click += gameExit;
+            backToMenu.FontFamily = new FontFamily("Arial");
+            //backToMenu.VerticalAlignment = VerticalAlignment.Top;
+            //backToMenu.HorizontalAlignment = HorizontalAlignment.Center;
+            backToMenu.Background = null;
+            backToMenu.BorderBrush = new SolidColorBrush(Colors.Red);
+            backToMenu.Foreground = new SolidColorBrush(Colors.White);
+
+
+
+
+            Canvas.SetLeft(backToMenu, 1);
+            Canvas.SetTop(backToMenu, 1);
+
+
             GC.Collect();
         }
 
-        private void makeObjsLists()
+        public void makeObjsLists()
         {
             telePadsLVL1.Add(new TelePad(50+573/2-15, 35+980/2-15)); //left
 
-            telePadsLVL1.Add(new TelePad(50+573+50+573/2-15, 35 + 980 / 2 - 15));
-            telePadsLVL1.Add(new TelePad(50+573+50+573+50+573/2-15, 35 + 980 / 2 - 15));
+            telePadsLVL1.Add(new TelePad(50+573+50+573/2-30, 35 + 980 / 2 - 30));
+            telePadsLVL1.Add(new TelePad(50+573+50+573+50+573/2-30, 35 + 980 / 2 - 30));
 
-            blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080 - 70, 1920 - 50, 50, "h"));//floor
+            blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080-50, 1920 - 50, 50, "h"));//floor
             blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 1920 - 50, 0, 50, 1080, "v")); //right wall
             blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 0, 1820, 50, "h"));//celling                   //boundarys
             blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 0, 0, 50, 1920, "v"));//left wall
@@ -696,26 +745,39 @@ namespace assesmentWpf
             blocksLVL1.Add(new Walls(new SolidColorBrush(Colors.Black), 623+50+573, 50, 50, 980, "v"));//middle
 
             /////////
-            telePadsLVL2.Add(new TelePad(50+573/2-15, 35+980/2-15)); //left
+            telePadsLVL2.Add(new TelePad(50+100, 50+980-310/2-30)); //bottom
+            telePadsLVL2.Add(new TelePad(50+1820-200, 50+310+50+310/2-40)); //middle
+            telePadsLVL2.Add(new TelePad(50+100,50+310/2-30)); //top
 
 
-            blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080 - 70, 1920 - 50, 50, "h"));//floor
+            blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080-50, 1920 - 50, 50, "h"));//floor
             blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 1920 - 50, 0, 50, 1080, "v")); //right wall
             blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 0, 1820, 50, "h"));//celling                   //boundarys
             blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 0, 0, 50, 1920, "v"));//left wall
-
+            //x,y,w,h
+            blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 50+310, 1820-400, 50, "h"));//top                   //boundarys
+            blocksLVL2.Add(new Walls(new SolidColorBrush(Colors.Black), 50+400, 50+310+310, 1820-400, 50, "h"));//bottom                   //boundarys
 
 
 
 
             ////////
-            blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080 - 70, 1920 - 50, 50, "h"));//floor
+            telePadsLVL3.Add(new TelePad(50 + 100, 50+310+50+100)); //bottom left
+            telePadsLVL3.Add(new TelePad(50 + 600, 50 + 980 - 310 / 2 - 30)); //bottom right
+            telePadsLVL3.Add(new TelePad(50 + 1820 - 200, 50 + 310 + 50 + 310 / 2 - 40)); //middle
+            telePadsLVL3.Add(new TelePad(50 + 100, 50 + 310 / 2 - 30)); //top
+
+
+            blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080-50, 1920 - 50, 50, "h"));//floor
             blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 1920 - 50, 0, 50, 1080, "v")); //right wall
             blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 0, 1820, 50, "h"));//celling                   //boundarys
             blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 0, 0, 50, 1920, "v"));//left wall
-
-
-
+            //x,y,w,h
+            blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 50 + 310, 1820 - 400, 50, "h"));//top                   //boundarys
+            blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 50 + 400, 50 + 310 + 310, 1820 - 400, 50, "h"));//bottom                   //boundarys
+            blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black),1820-400,50,50,310,"v"));
+            blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black),50+400,1080-50-310,50,310 , "v"));
+            blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 50+1820/2, 100+310, 50, 310 , "v"));
 
 
         }
@@ -727,7 +789,7 @@ namespace assesmentWpf
 
             orange.ResetBullet(player);
             blue.ResetBullet(player);
-
+            activeGoal.SetHitHox();
 
 
             foreach (Walls item in wallstomake)
@@ -740,7 +802,7 @@ namespace assesmentWpf
 
 
         }
-        private void makeTelePads(List<TelePad> tpads)
+        public void makeTelePads(List<TelePad> tpads)
         {
             
 
@@ -754,7 +816,7 @@ namespace assesmentWpf
                 item.visualDesign_middleCircle.MouseDown += VisualDesign_middleCircle_MouseDown;
             }
         }
-        private void VisualDesign_middleCircle_MouseDown(object sender, MouseButtonEventArgs e)
+        public void VisualDesign_middleCircle_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.MiddleButton == MouseButtonState.Pressed)
             {
@@ -773,13 +835,15 @@ namespace assesmentWpf
         public void gameExit(object sender, RoutedEventArgs e)
         {
             MainWindow.menu.Show();
-            Window1.game.Hide();
+            Window1.games[currentLvl-1].Hide();
+            this.dispatcherTimer.Stop();
+            this.ballMoveTimer.Stop();
         }
-        private void BallMoveTimer_Tick(object sender, EventArgs e)
+        public void BallMoveTimer_Tick(object sender, EventArgs e)
         {
             ball.move();
         }
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        public void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             GC.Collect();
             //foreach (Walls item in blocks)
@@ -789,16 +853,25 @@ namespace assesmentWpf
             blue.SetHitHox();
             orange.SetHitHox();
             ball.SetHitHox();
+            activeGoal.SetHitHox();
 
 
+            var col = ColisionDetc(ball.hitbox, activeGoal.hitbox);
+            var bx = Canvas.GetLeft(ball.visual);
+            var by = Canvas.GetTop(ball.visual);
 
-          
-            
+            //ballloch.Content = $"{ball.hitbox.X}, {ball.hitbox.Y} ";
+
+
+            //ballloc.Content = $"{bx}, {by}";
+
             if (ball.canTele == 1) { teleportCheck(); }
 
-            if (ball.hitbox.IntersectsWith(activeGoal.hitbox))
+            if (ColisionDetc(ball.hitbox, activeGoal.hitbox))
             {
-                Canvas.SetLeft(ball.visual, 1);
+                //Canvas.SetLeft(ball.visual, 1);
+                ball.reset(ballresetpoint,ballresetdir);
+                ball.SetHitHox();
                 nextLevel(currentLvl);
             }
 
@@ -863,7 +936,7 @@ namespace assesmentWpf
                 foreach (var x in activeWalls)
                 {
 
-                    if (ball.hitbox.IntersectsWith(x.hitbox) && (ball.hitbox.IntersectsWith(orange.hitbox) == false || ball.hitbox.IntersectsWith(blue.hitbox) == false)) { ball.reset(); }
+                    if (ball.hitbox.IntersectsWith(x.hitbox) && (ball.hitbox.IntersectsWith(orange.hitbox) == false || ball.hitbox.IntersectsWith(blue.hitbox) == false)) { ball.reset(ballresetpoint, ballresetdir); score += 1; }
                 }
             }
 
@@ -873,7 +946,7 @@ namespace assesmentWpf
         {
             DispatcherTimer wait = new DispatcherTimer();
             wait.Tick += Wait_Tick;
-            wait.Interval = new TimeSpan(0, 0, 5);
+            wait.Interval = new TimeSpan(0, 0, 3);
 
             if (ball.hitbox.IntersectsWith(portal_blue.hitBoxVertical) || ball.hitbox.IntersectsWith(portal_blue.hitBoxSideWays))//blue portal 
             {
@@ -967,15 +1040,33 @@ namespace assesmentWpf
         }
         public void nextLevel(int nextLevel)
         {
-
-
-
-            MainWindow lvlnxt = new MainWindow(nextLevel + 1);
             this.Close();
-            lvlnxt.dispatcherTimer.Start();
-            lvlnxt.ballMoveTimer.Start();
-            lvlnxt.Show();
-        
+            if (currentLvl == 3)
+            {
+                var end = new End();
+                end.Show();
+                this.Close();
+            }
+            else
+            {
+                this.dispatcherTimer.Stop();
+                this.ballMoveTimer.Stop();
+
+                this.Close();
+                Window1.games[currentLvl].Show();
+                Window1.games[currentLvl].dispatcherTimer.Start();
+                Window1.games[currentLvl].ballMoveTimer.Start();
+            }
+
+
+
+
+
+
+
+
+
+
         }
 
 

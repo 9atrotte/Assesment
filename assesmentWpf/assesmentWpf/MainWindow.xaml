@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:assesmentWpf"
         mc:Ignorable="d"
-        Title="MainWindow" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="CanMinimize">
+        Title="MainWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="CanMinimize" WindowStyle="None">
     <Canvas x:Name="background" Width="1920" Height="1080">
         <Image x:Name="backImage" Source="sprites/background2.jpg" Height="1070" Width="1910" Stretch="Fill"/>
     </Canvas>

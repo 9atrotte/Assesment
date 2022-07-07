@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:assesmentWpf"
         mc:Ignorable="d"
-        Title="LoadingScreen" Height="1080" Width="1920" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        Title="LoadingScreen" Height="1080" Width="1920" WindowStartupLocation="CenterScreen" WindowState="Maximized" WindowStyle="None">
     <Canvas x:Name="cnvLoading" Background="Black">
         <Rectangle x:Name="rectFrame" HorizontalAlignment="Center" Height="56" Margin="428,869,392,0" Stroke="White" Fill="White" VerticalAlignment="Top" Width="1100"/>
         <Rectangle x:Name="rectLoading" HorizontalAlignment="Center" Height="52" Margin="430,871,394,0" Fill="#FF3BD63B" VerticalAlignment="Top" Width="1096"/>
         <TextBlock x:Name="txtLoading" FontFamily="./Fonts/#VCR OSD Mono" Text="Loading..." HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Height="78" Width="306" FontSize="50" Canvas.Left="830" Canvas.Top="793" TextAlignment="Center"/>
-        <TextBlock x:Name="txtFacts" FontFamily="./Fonts/#VCR OSD Mono" HorizontalAlignment="Center" TextWrapping="Wrap" Text="facts" VerticalAlignment="Top" Height="165" Width="1306" Foreground="White" TextAlignment="Center" FontSize="40" Canvas.Left="330" Canvas.Top="572"/>
-        <TextBlock x:Name="txtTitle" Canvas.Left="316" TextWrapping="Wrap" Text="Portals" Canvas.Top="170" Width="1288" TextAlignment="Center" FontFamily="./Fonts/#Paper Cut" Foreground="#FF00C49A" Background="{x:Null}" FontSize="250" Height="285" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock x:Name="txtFacts" FontFamily="./Fonts/#VCR OSD Mono" HorizontalAlignment="Left" TextWrapping="Wrap" Text="facts" VerticalAlignment="Top" Height="165" Width="1306" Foreground="White" TextAlignment="Center" FontSize="40" Canvas.Left="307" Canvas.Top="537"/>
+        <Label x:Name="txtTitle" Content="  Portals" Canvas.Top="170" Width="1920" FontFamily="entanglement" Foreground="#FF6000C4" Background="{x:Null}" FontSize="250" Height="305" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
     </Canvas>
 </Window>
