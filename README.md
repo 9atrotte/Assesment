@@ -3,7 +3,7 @@
 
 
 
-#Running Game 
+# Running Game 
 to run the game either execute
 
   `assesmentWpf/bin/Debug/assesmentWpf.exe`
