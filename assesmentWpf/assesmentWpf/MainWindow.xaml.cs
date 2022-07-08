@@ -765,7 +765,7 @@ namespace assesmentWpf
             telePadsLVL3.Add(new TelePad(50 + 100, 50+310+50+100)); //bottom left
             telePadsLVL3.Add(new TelePad(50 + 600, 50 + 980 - 310 / 2 - 30)); //bottom right
             telePadsLVL3.Add(new TelePad(50 + 1820 - 200, 50 + 310 + 50 + 310 / 2 - 40)); //middle
-            telePadsLVL3.Add(new TelePad(50 + 100, 50 + 310 / 2 - 30)); //top
+            telePadsLVL3.Add(new TelePad(50 + 100 + 600, 50 + 310 / 2 - 30)); //top
 
 
             blocksLVL3.Add(new Walls(new SolidColorBrush(Colors.Black), 50, 1080-50, 1920 - 50, 50, "h"));//floor
