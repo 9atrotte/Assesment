@@ -944,6 +944,7 @@ namespace assesmentWpf
         }
         public void teleportCheck()
         {
+            
             DispatcherTimer wait = new DispatcherTimer();
             wait.Tick += Wait_Tick;
             wait.Interval = new TimeSpan(0, 0, 2);

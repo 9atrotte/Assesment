@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="HowToPlay" Height="1080" Width="1920" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" WindowState="Maximized" WindowStyle="None">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="623*"/>
+            <ColumnDefinition Width="17*"/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
@@ -22,8 +26,8 @@
                 <GradientStop Color="#FEFFBA01" Offset="0"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label Content="Aim:&#xA;&#x9;The aim of the game is to get the ball to the purple goal. The ball&#xA;&#x9;will teleport between the portals when it touches one and will keep &#xA;&#x9;the direction of travel it has when it enters. The ball will be reset&#xA;&#x9;if it hits any walls.&#xA;&#xA;&#xA;Controls:&#xA;&#x9;Left_Click -&gt; shoot blue portal&#xA;&#x9;Right_Click -&gt; shoot orange portal&#xA;&#x9;Middle_Click -&gt; Teleport to pad&#xA;&#xA;How to play:&#xD;&#xA;&#x9;Place portals for the ball to travel through to enable it to reach the purple Goal.&#xD;&#xA;&#x9;The ball will teleport between the portals when it touches one.&#xD;&#xA;&#x9;The ball will maintain a forward motion when it teleports between the portals&#xD;&#xA;&#x9;The ball will reset if collides with a wall&#xD;&#xA;&#x9; " Foreground="White" FontSize="24"/>
-        <Button x:Name="btn_exit" Content="Back" HorizontalAlignment="Center" Height="67" Margin="0,743,0,0" VerticalAlignment="Top" Width="204" Click="btn_back_Click" Background="{x:Null}" BorderBrush="Red" FontSize="36" FontFamily="Arial" FontWeight="Normal" Foreground="Black"/>
+        <Label Content="Aim:&#xA;&#x9;The aim of the game is to get the ball to the purple goal. The ball&#xA;&#x9;will teleport between the portals when it touches one and will keep &#xA;&#x9;the direction of travel it has when it enters. The ball will be reset&#xA;&#x9;if it hits any walls.&#xA;&#xA;&#xA;Controls:&#xA;&#x9;Left_Click -&gt; shoot blue portal&#xA;&#x9;Right_Click -&gt; shoot orange portal&#xA;&#x9;Middle_Click -&gt; Teleport to pad&#xA;&#xA;How to play:&#xA;&#x9;Place portals for the ball to travel through to enable it to reach the purple Goal.&#xA;&#x9;The ball will teleport between the portals when it touches one.&#xA;&#x9;The ball will maintain a forward motion when it teleports between the portals&#xA;&#x9;The ball will reset if collides with a wall&#xA;&#x9;If only one portal has been placed and the ball collides with it it remain stationary until the other portal has been placed&#x9; " Foreground="Black" FontSize="24" Grid.ColumnSpan="2"/>
+        <Button x:Name="btn_exit" Content="Back" HorizontalAlignment="Left" Height="67" Margin="858,743,0,0" VerticalAlignment="Top" Width="204" Click="btn_back_Click" Background="{x:Null}" BorderBrush="Red" FontSize="36" FontFamily="Arial" FontWeight="Normal" Foreground="Black"/>
 
     </Grid>
 </Window>
